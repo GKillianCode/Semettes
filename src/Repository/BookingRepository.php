@@ -39,6 +39,19 @@ class BookingRepository extends ServiceEntityRepository
         }
     }
 
+    public function findFromTodayOnward(): array
+        {
+            $now = date('Y-m-d H:i:s');
+            return $this->createQueryBuilder('b')
+                ->andWhere('b.date_time >= :time')
+                ->setParameter('time', $now)
+                //->orderBy('b.id', 'ASC')
+                //->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
 //     */
