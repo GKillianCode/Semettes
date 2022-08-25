@@ -1,7 +1,8 @@
 .pane-info{
-    position: absolute;
+    position: fixed;
     left: -320px;
     top: 0;
+    z-index: 500;
     width: 320px;
     height: 100vh;
     border-right: 2px solid #000;
@@ -32,3 +33,26 @@
     object-fit: cover;
     object-position: center;
 }
+
+.calendar-container{
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
+}
+.fc-col-header-cell{
+    background: #444;
+}
+.fc-col-header-cell a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+.fc-timegrid-axis-frame,
+.fc-timegrid-slot-label-frame,
+.fc-timegrid-slot-label{
+    background: #444;
+    color: #FFF;
+}
+
+/* fc-timegrid-slot fc-timegrid-slot-label fc-timegrid-slot-minor */
