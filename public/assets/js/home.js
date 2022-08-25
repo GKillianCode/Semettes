@@ -7,9 +7,11 @@ paneInfoCloseButton.addEventListener('click', () => {
 });
 
 function drawCalendar(events){
-    document.addEventListener('DOMContentLoaded', function() {
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+
+    console.log(events)
+
+    let calendarEl = document.getElementById('calendar');
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: { center: 'timeGridWeek,dayGrid' },
         initialView:'timeGridWeek',
         header:{
@@ -17,71 +19,67 @@ function drawCalendar(events){
             center :'title',
         },
         timeZone: 'UTC',
-        events: [
-                {
-                    id: 'a',
-                    title: 'my event',
-                    extendedProps: {
-                        salle : ['salle1','salle2'],
-                        isClickable : true
-                    },
-                    start: '2022-08-23 08:00:00',
-                    end: '2022-08-23 12:00:00'
-                }
-            ],
-            eventTimeFormat: {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            },
-            eventClick: function(info) {
-                if (info.event.extendedProps.isClickable === true){
-                    sectionRoom.classList.toggle("salle_available_toggled")
-                    localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
-                    console.log(info.event)
-                }
-            },
-            eventContent: function(info) {
-                console.log(info)
-                if (info.event._def.extendedProps.isClickable === true){
-                    
-                    info.backgroundColor='red';
-                }
-                    let arrayOfDomNodes = []
-                    info.event.extendedProps.salle.forEach(e => {
-                        let salle = document.createElement('p')
-                        salle.innerHTML = e
-                        arrayOfDomNodes.push(salle)
-                    })
-                    return { domNodes: arrayOfDomNodes }    
+        // events: [
+        //     {
+        //         extendedProps: {
+        //             room : ['salle1','salle2'],
+        //             isClickable : true
+        //         },
+        //         start: '2022-08-23 08:00:00',
+        //         end: '2022-08-23 12:00:00'
+        //     }
+        // ],
+        events: events,
+        eventTimeFormat: {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        },
+        eventClick: function(info) {
+            if (info.event.extendedProps.isClickable === true){
+                sectionRoom.classList.toggle("salle_available_toggled")
+                localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
             }
-            
-        });
-        calendar.render();
+        },
+        eventContent: function(info) {
+            if (info.event._def.extendedProps.isClickable === true){  
+                info.backgroundColor='red';
+            }
+                let arrayOfDomNodes = []
+                info.event.extendedProps.room.forEach(e => {
+                let room = document.createElement('p')
+                room.innerHTML = e
+                arrayOfDomNodes.push(room)
+            })
+                
+            return { domNodes: arrayOfDomNodes }    
+        }
     });
+    calendar.render();
 }
 
 function getAllSlots(onSuccess){
     const request = new XMLHttpRequest();
-    let url = 'localhost:8000'
-    request.open("GET", url, true);
+    let url = 'https://localhost:8000/api'
+    request.open("GET", url+"/weekslots", true);
     request.addEventListener("readystatechange", function (){
         if(request.readyState === XMLHttpRequest.DONE){
+            let response = request;
             if(request.status === 200){
-                response = JSON.parse(request.responseText);
-                onSuccess(response);
+                let res = JSON.parse(request.responseText);
+                onSuccess(res);
             } else if(request.status === 400){
-                showAlert("Une erreur s'est produite : "+response.error);
+                console.error("Une erreur s'est produite : ", response.status);
             } else {
-                showAlert("Une erreur s'est produite : "+response.error);
+                console.error("Une erreur s'est produite : ", response.status);
             }
         }
     })
     request.send();
 }
-drawCalendar();
-//getAllSlots(drawCalendar);
+
+getAllSlots(drawCalendar);
 
 
 

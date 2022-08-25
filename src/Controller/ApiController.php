@@ -29,25 +29,24 @@ class ApiController extends AbstractController
         for ($i = $begin; $i <= $end; date_modify($i, '+1 day')) {
             $morning = new \DateTime($i->format('Y') . '-' . $i->format('m') . '-' . $i->format('d') . ' 08:00:00');
             $response[] = [
-                'start' => $morning,
-                'end' => new \DateTime(date('Y-m-d H:i:s', strtotime($morning->format('Y-m-d H:i:s') . '+4 hours'))),
-                'extendendedProps' => [
+                'start' => $morning->format('Y-m-d H:i:s'),
+                'end' => date('Y-m-d H:i:s', strtotime($morning->format('Y-m-d H:i:s') . '+4 hours')),
+                'extendedProps' => [
                     'room' => ['room1'],
                     'isClickable' => true
                 ],
             ];
             $afternoon = new \DateTime($i->format('Y') . '-' . $i->format('m') . '-' . $i->format('d') . ' 13:00:00');
             $response[] = [
-                'start' => $afternoon,
-                'end' => new \DateTime(date('Y-m-d H:i:s', strtotime($afternoon->format('Y-m-d H:i:s') . '+4 hours'))),
-                'extendendedProps' => [
+                'start' => $afternoon->format('Y-m-d H:i:s'),
+                'end' => date('Y-m-d H:i:s', strtotime($afternoon->format('Y-m-d H:i:s') . '+4 hours')),
+                'extendedProps' => [
                     'room' => ['room1'],
                     'isClickable' => true
                 ],
             ];
         }
         $apiResponse = new JsonResponse($response, 200, []);
-        dd($apiResponse);
         return $apiResponse;
     }
 }
