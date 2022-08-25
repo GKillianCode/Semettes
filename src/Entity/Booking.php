@@ -28,18 +28,18 @@ class Booking
     private $date_time;
 
     /**
-     * @ORM\OneToOne(targetEntity=weekSlot::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=WeekSlot::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $week_slot_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=meetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=MeetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
      */
     private $meeting_room_id;
 
     /**
-     * @ORM\OneToOne(targetEntity=user::class, inversedBy="booking", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="booking", cascade={"persist", "remove"})
      */
     private $user_id;
 
