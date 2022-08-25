@@ -3,6 +3,42 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
+<div class="pane-info pane-info-open pt-5 pb-2 bg-danger">
+    <button class="pane-info-close btn btn-success button-close p-0 z-50 rounded-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+    </button>
+
+    <ul class="d-flex flex-wrap">
+        <li class="pane-info-none d-flex flex-column">
+            <img class="pane-info-img rounded-1" src="{{ asset('assets/imgs/room1x800.jpg') }}" alt="" class="rounded-1">
+            <button class="btn my-1 w-100 d-flex justify-content-between align-middle">
+                <span class="text-bold text-uppercase">Room 1</span>
+                <svg class="my-auto bg-success rounded-1" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z"/></svg>
+            </button>
+            <div class="room-description"></div>
+            <button class="btn btn-primary w-100">Ajouter au panier</button>
+        </li>
+        <li class="mt-5 pane-info-room d-flex flex-column">
+            <img class="pane-info-img rounded-1" src="{{ asset('assets/imgs/room2x800.jpg') }}" class="rounded-1">
+            <button class="btn my-1 w-100 d-flex justify-content-between align-middle">
+                <span class="text-bold text-uppercase">Room 1</span>
+                <svg class="my-auto bg-success rounded-1" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z"/></svg>
+            </button>
+            <div class="room-description"></div>
+            <button class="btn btn-primary w-100">Ajouter au panier</button>
+        </li>
+        <li class="mt-5 pane-info-room d-flex flex-column">
+            <img class="pane-info-img rounded-1" src="{{ asset('assets/imgs/room3x800.jpg') }}" alt="" class="rounded-1">
+            <button class="btn my-1 w-100 d-flex justify-content-between align-middle">
+                <span class="text-bold text-uppercase">Room 1</span>
+                <svg class="my-auto bg-success rounded-1" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z"/></svg>
+            </button>
+            <div class="room-description"></div>
+            <button class="btn btn-primary w-100">Ajouter au panier</button>
+        </li>
+    </ul>
 <div id="calendar">
 </div>
+
+<script src="{{ asset('assets/js/home.js') }}"></script>
 {% endblock %}
