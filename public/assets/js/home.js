@@ -1,14 +1,18 @@
 
 const paneInfo = document.querySelector('.pane-info');
+const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
+const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
 
 paneInfoCloseButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
 });
 
-function drawCalendar(events){
+paneRecapOpenButton.addEventListener('click', () => {
+    paneRecap.classList.toggle('pane-recap-open');
+});
 
-    console.log(events)
+function drawCalendar(events){
 
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -19,8 +23,6 @@ function drawCalendar(events){
             center :'title',
         },
         allDaySlot: false,
-        minTime: '10:00',
-        maxTime: '18:00',
         timeZone: 'UTC',
         
         events: events,
@@ -32,8 +34,10 @@ function drawCalendar(events){
         },
         eventClick: function(info) {
             if (info.event.extendedProps.isClickable === true){
-                sectionRoom.classList.toggle("salle_available_toggled")
-                localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+                // sectionRoom.classList.toggle("salle_available_toggled")
+                // localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+
+                paneInfo.classList.remove('pane-info-open');
             }
         },
         eventContent: function(info) {
@@ -62,7 +66,8 @@ function getAllSlots(onSuccess){
             let response = request;
             if(request.status === 200){
                 let res = JSON.parse(request.responseText);
-                onSuccess(res);
+                alert('ok')
+                setTimeout(onSuccess(res), 5000);
             } else if(request.status === 400){
                 console.error("Une erreur s'est produite : ", response.status);
             } else {
