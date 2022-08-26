@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\MeetingRoomRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MeetingRoomRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MeetingRoomRepository::class)
@@ -20,26 +21,31 @@ class MeetingRoom
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_image_name;
 
     /**
      * @ORM\Column(type="smallint")
      */
+    #[Groups(['meeting_rooms'])]
     private $max_person;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $rate;
 
     /**

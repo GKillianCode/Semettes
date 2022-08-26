@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Validator\Constraints\DateTime;
 use App\Repository\BookingRepository;
-use App\Repository\MeetingRoomRepository;
 use App\Repository\WeekSlotRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\MeetingRoomRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+
 
 class ApiController extends AbstractController
 {
@@ -47,6 +49,18 @@ class ApiController extends AbstractController
             }
         }
         $apiResponse = new JsonResponse($response, 200, []);
+        return $apiResponse;
+    }
+
+    #[Route('/api/rooms', methods: ['GET'])]
+
+    public function showRooms(
+        MeetingRoomRepository $meetingRoomRepo,
+        SerializerInterface $serializer
+
+    ) {
+        $rooms = $meetingRoomRepo->findAll();
+        $apiResponse = $serializer->serialize($rooms, 'json', ['groups'=>['meeting_rooms']]);
         return $apiResponse;
     }
 }
