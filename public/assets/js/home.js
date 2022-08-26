@@ -25,8 +25,6 @@ function drawCalendar(events){
             center :'title',
         },
         allDaySlot: false,
-        minTime: '10:00',
-        maxTime: '18:00',
         timeZone: 'UTC',
         
         events: events,
@@ -38,8 +36,10 @@ function drawCalendar(events){
         },
         eventClick: function(info) {
             if (info.event.extendedProps.isClickable === true){
-                sectionRoom.classList.toggle("salle_available_toggled")
-                localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+                // sectionRoom.classList.toggle("salle_available_toggled")
+                // localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+
+                paneInfo.classList.add('pane-info-open');
             }
         },
         eventContent: function(info) {
