@@ -55,4 +55,9 @@
     color: #FFF;
 }
 
-/* fc-timegrid-slot fc-timegrid-slot-label fc-timegrid-slot-minor */
+[data-time^="12"]>td, [data-time^="1"]>td
+{
+    height: 0 !important;
+    border: 0 !important;
+    display: none !important;
+}

@@ -18,17 +18,11 @@ function drawCalendar(events){
             left:'prev,next,today',
             center :'title',
         },
+        allDaySlot: false,
+        minTime: '10:00',
+        maxTime: '18:00',
         timeZone: 'UTC',
-        // events: [
-        //     {
-        //         extendedProps: {
-        //             room : ['salle1','salle2'],
-        //             isClickable : true
-        //         },
-        //         start: '2022-08-23 08:00:00',
-        //         end: '2022-08-23 12:00:00'
-        //     }
-        // ],
+        
         events: events,
         eventTimeFormat: {
             hour: '2-digit',
