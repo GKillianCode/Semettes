@@ -13,4 +13,11 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', []);
     }
+
+    #[Route('/booking', methods: ['POST', 'GET'])]
+    public function booking(): Response
+    {
+        return $this->render('home/booking_form.html.twig', ['data'=>'Hello']);
+    }
 }
+
