@@ -25,7 +25,7 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_time;
+    private $start_time;
 
     /**
      * @ORM\OneToOne(targetEntity=WeekSlot::class, cascade={"persist", "remove"})
@@ -65,14 +65,14 @@ class Booking
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->date_time;
+        return $this->start_time;
     }
 
-    public function setDateTime(\DateTimeInterface $date_time): self
+    public function setStartTime(\DateTimeInterface $start_time): self
     {
-        $this->date_time = $date_time;
+        $this->start_time = $start_time;
 
         return $this;
     }
