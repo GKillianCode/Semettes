@@ -1,9 +1,15 @@
 
 const paneInfo = document.querySelector('.pane-info');
+const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
+const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
 
 paneInfoCloseButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
+});
+
+paneRecapOpenButton.addEventListener('click', () => {
+    paneRecap.classList.toggle('pane-recap-open');
 });
 
 function drawCalendar(events){
