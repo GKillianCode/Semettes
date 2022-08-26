@@ -34,7 +34,8 @@ class ApiController extends AbstractController
                     $finish = new \DateTime($i->format('Y-m-d').$ws->getEndTime()->format('H:i:s'));
                 
                     # Recherche des salles disponibles dans le slot en question: 
-
+                    $rooms = $bookingRepo->findFromdXtoDy($start,$finish);
+                    dd($rooms);
                     $response[] = [
                         'start' => $start->format('y-m-d H:i:s'),
                         'end' => $finish->format('y-m-d H:i:s'),
