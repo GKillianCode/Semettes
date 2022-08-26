@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiController extends AbstractController
 {
@@ -18,6 +19,7 @@ class ApiController extends AbstractController
         WeekSlotRepository $weekslotRepo,
         MeetingRoomRepository $meetingRoomRepo,
         BookingRepository $bookingRepo,
+        SerializerInterface $serializer
     ): Response {
         $weekSlots = $weekslotRepo->findAll();
         $meetingRooms = $meetingRoomRepo->findAll();
@@ -32,21 +34,33 @@ class ApiController extends AbstractController
                 if ($i->format('N') == $ws->getWeekDay()){
                     $start = new \DateTime($i->format('Y-m-d').$ws->getStartTime()->format('H:i:s'));
                     $finish = new \DateTime($i->format('Y-m-d').$ws->getEndTime()->format('H:i:s'));
-                
                     # Recherche des salles disponibles dans le slot en question: 
+                    $meetingRooms = $meetingRoomRepo->findAll();
+                    foreach($meetingRooms as &$room){
+                        $room = $room->getId();
+                    }
                     $rooms = $bookingRepo->findFromdXtoDy($start,$finish);
-                    dd($rooms);
+                    foreach($rooms as &$room){
+                        $room = $room['meeting_room_id_id'];
+                    }
+                    $roomAvailable = array_diff($meetingRooms,$rooms);
+
+                    //foreach($roomAvailable as &$r){
+                        //$r = $meetingRoomRepo->findById($r);
+                    //};
+                    //dd($roomAvailable);
                     $response[] = [
                         'start' => $start->format('y-m-d H:i:s'),
                         'end' => $finish->format('y-m-d H:i:s'),
                         'extendedProps' => [
-                            'room' => ['room1'],
-                            'isClickable' => true
+                            'room' => $roomAvailable,
+                            'isClickable' => $isClickable = count($roomAvailable) === 0 ? false : true,
                         ],
                     ];
                 }   
             }
         }
+        dd($response);
         $apiResponse = new JsonResponse($response, 200, []);
         return $apiResponse;
     }

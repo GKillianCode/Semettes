@@ -15,31 +15,37 @@ class MeetingRoom
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['meeting_rooms'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_image_name;
 
     /**
      * @ORM\Column(type="smallint")
      */
+    #[Groups(['meeting_rooms'])]
     private $max_person;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $rate;
 
     /**

@@ -55,18 +55,33 @@ class BookingRepository extends ServiceEntityRepository
         {
             $conn = $this->getEntityManager()->getConnection();
 
-            $sql = '
-                SELECT m.room FROM booking b
+            /*$sql = '
+                SELECT * FROM booking b
                 INNER JOIN meeting_room m ON b.meeting_room_id_id = m.id
-                WHERE (b.end_time > CAST(:start as date)
-                AND b.end_time < CAST(:end as date))
-                
+                WHERE ((b.end_time > CAST(:start as date)
+                AND b.end_time < CAST(:end as date)))
+                OR ((b.start_time > CAST(:start as date)
+                AND b.start_time < CAST(:end as date)))
+                OR ((b.start_time = CAST(:start as date)
+                AND b.end_time = CAST(:end as date)))
+                ';*/
+            $sql = '
+                SELECT b.meeting_room_id_id FROM booking b
+                INNER JOIN meeting_room m ON b.meeting_room_id_id = m.id
+                WHERE 
+                (CAST(b.start_time as datetime) = CAST(:start as datetime) AND CAST(b.end_time as datetime) = CAST(:end as datetime))
+                OR 
+                (CAST(b.end_time as datetime) > CAST(:start as date) AND CAST(b.end_time as datetime) < CAST(:end as date))
+                OR 
+                (CAST(b.start_time as datetime) > CAST(:start as date)
+                AND CAST(b.start_time as datetime) < CAST(:end as date))
                 ';
+                
             $stmt = $conn->prepare($sql);
             $resultSet = $stmt->executeQuery(
                 [
-                    'start' => $start->format('Y-d-m H:i:s'),
-                    'end' => $end->format('Y-d-m H:i:s')
+                    'start' => $start->format('Y-m-d H:i:s'),
+                    'end' => $end->format('Y-m-d H:i:s')
                 ]
             );
 
