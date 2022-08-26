@@ -39,6 +39,15 @@ class MeetingRoomRepository extends ServiceEntityRepository
         }
     }
 
+    // public function findAllRooms(): array
+    // {
+    //     return $this->createQueryBuilder('m')
+    //     ->select(array('m'))
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
 //    /**
 //     * @return MeetingRoom[] Returns an array of MeetingRoom objects
 //     */
