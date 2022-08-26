@@ -55,9 +55,6 @@
     color: #FFF;
 }
 
-[data-time^="12"]>td, [data-time^="1"]>td
-{
-    height: 0 !important;
-    border: 0 !important;
-    display: none !important;
+.pane-info-room svg path{
+    color: #FFF;
 }
