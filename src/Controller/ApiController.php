@@ -37,8 +37,8 @@ class ApiController extends AbstractController
                     # Recherche des salles disponibles dans le slot en question: 
 
                     $response[] = [
-                        'start' => $start->format('y-m-d H:i:s'),
-                        'end' => $finish->format('y-m-d H:i:s'),
+                        'start' => $start->format('Y-m-d H:i:s'),
+                        'end' => $finish->format('Y-m-d H:i:s'),
                         'extendedProps' => [
                             'room' => ['room1'],
                             'isClickable' => true

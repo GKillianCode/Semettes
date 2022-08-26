@@ -13,7 +13,6 @@ paneRecapOpenButton.addEventListener('click', () => {
 });
 
 function drawCalendar(events){
-
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: { center: 'timeGridWeek,dayGrid' },
@@ -25,6 +24,16 @@ function drawCalendar(events){
         allDaySlot: false,
         timeZone: 'UTC',
         
+        // events: [
+        //     {
+        //         extendedProps: {
+        //             room : ['salle1','salle2'],
+        //             isClickable : true
+        //         },
+        //         start: '2022-08-23 08:00:00',
+        //         end: '2022-08-23 12:00:00'
+        //     }
+        // ],
         events: events,
         eventTimeFormat: {
             hour: '2-digit',
@@ -57,28 +66,7 @@ function drawCalendar(events){
     calendar.render();
 }
 
-function getAllSlots(onSuccess){
-    const request = new XMLHttpRequest();
-    let url = 'https://localhost:8000/api'
-    request.open("GET", url+"/weekslots", true);
-    request.addEventListener("readystatechange", function (){
-        if(request.readyState === XMLHttpRequest.DONE){
-            let response = request;
-            if(request.status === 200){
-                let res = JSON.parse(request.responseText);
-                alert('ok')
-                setTimeout(onSuccess(res), 5000);
-            } else if(request.status === 400){
-                console.error("Une erreur s'est produite : ", response.status);
-            } else {
-                console.error("Une erreur s'est produite : ", response.status);
-            }
-        }
-    })
-    request.send();
-}
-
-getAllSlots(drawCalendar);
+apiGetAllSlots(drawCalendar);
 
 
 
