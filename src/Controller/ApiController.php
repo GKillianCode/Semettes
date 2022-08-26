@@ -27,26 +27,25 @@ class ApiController extends AbstractController
         $end->modify('+60 day');
         $response = [];
         for ($i = $begin; $i <= $end; date_modify($i, '+1 day')) {
-            $morning = new \DateTime($i->format('Y') . '-' . $i->format('m') . '-' . $i->format('d') . ' 08:00:00');
-            $response[] = [
-                'start' => $morning->format('Y-m-d H:i:s'),
-                'end' => date('Y-m-d H:i:s', strtotime($morning->format('Y-m-d H:i:s') . '+4 hours')),
-                'extendedProps' => [
-                    'room' => ['room1'],
-                    'isClickable' => true
-                ],
-            ];
-            $afternoon = new \DateTime($i->format('Y') . '-' . $i->format('m') . '-' . $i->format('d') . ' 13:00:00');
-            $response[] = [
-                'start' => $afternoon->format('Y-m-d H:i:s'),
-                'end' => date('Y-m-d H:i:s', strtotime($afternoon->format('Y-m-d H:i:s') . '+4 hours')),
-                'extendedProps' => [
-                    'room' => ['room1'],
-                    'isClickable' => true
-                ],
-            ];
+            foreach($weekSlots as $ws){
+                # Recherche de la date du slot en fonction de la semaine type
+                if ($i->format('N') == $ws->getWeekDay()){
+                    $start = new \DateTime($i->format('Y-m-d').$ws->getStartTime()->format('H:i:s'));
+                    $finish = new \DateTime($i->format('Y-m-d').$ws->getEndTime()->format('H:i:s'));
+                
+                    # Recherche des salles disponibles dans le slot en question: 
+
+                    $response[] = [
+                        'start' => $start->format('y-m-d H:i:s'),
+                        'end' => $finish->format('y-m-d H:i:s'),
+                        'extendedProps' => [
+                            'room' => ['room1'],
+                            'isClickable' => true
+                        ],
+                    ];
+                }   
+            }
         }
-        
         $apiResponse = new JsonResponse($response, 200, []);
         return $apiResponse;
     }
