@@ -3,12 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<div class="calendar-container">
-    <div id="calendar">
-    </div>
-</div>
-
-<div class="pane-info pane-info-open pt-5 pb-2 bg-sLightYellow">
+<div class="pane-info pt-5 pb-2 bg-sLightYellow">
     <button class="pane-info-close btn btn-sPurple button-close p-0 z-50 rounded-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
     </button>
@@ -42,6 +37,18 @@
             <button class="btn btn-sPurple text-white w-100">Ajouter au panier</button>
         </li>
     </ul>
+</div>
+
+<div class="calendar-container">
+    <div id="calendar">
+    </div>
+</div>
+
+<div class="pane-recap bg-sPurple h-100">
+    <button class="pane-recap-openButton btn btn-sYellow p-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path stroke-linejoin="round" d="M2.31 11.242A1 1 0 0 1 3.28 10h17.44a1 1 0 0 1 .97 1.242l-1.811 7.243A2 2 0 0 1 17.939 20H6.061a2 2 0 0 1-1.94-1.515L2.31 11.243Z"/><path stroke-linecap="round" d="M9 14v2m6-2v2m-9-6l4-6m8 6l-4-6"/></g></svg>
+    </button>
+    <p>blah</p>
 </div>
 
 <script src="{{ asset('assets/js/home.js') }}"></script>
