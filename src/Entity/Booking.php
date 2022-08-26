@@ -43,6 +43,11 @@ class Booking
      */
     private $user_id;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $end_time;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class Booking
     public function setUserId(?user $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->end_time;
+    }
+
+    public function setEndTime(\DateTimeInterface $end_time): self
+    {
+        $this->end_time = $end_time;
 
         return $this;
     }
