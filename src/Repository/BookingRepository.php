@@ -43,7 +43,7 @@ class BookingRepository extends ServiceEntityRepository
         {
             $now = date('Y-m-d H:i:s');
             return $this->createQueryBuilder('b')
-                ->andWhere('b.date_time >= :time')
+                ->andWhere('b.start_time >= :time')
                 ->setParameter('time', $now)
                 //->orderBy('b.id', 'ASC')
                 //->setMaxResults(10)
