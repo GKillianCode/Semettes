@@ -14,8 +14,6 @@ paneRecapOpenButton.addEventListener('click', () => {
 
 function drawCalendar(events){
 
-    console.log(events)
-
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: { center: 'timeGridWeek,dayGrid' },
@@ -39,7 +37,7 @@ function drawCalendar(events){
                 // sectionRoom.classList.toggle("salle_available_toggled")
                 // localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
 
-                paneInfo.classList.add('pane-info-open');
+                paneInfo.classList.remove('pane-info-open');
             }
         },
         eventContent: function(info) {
@@ -68,7 +66,8 @@ function getAllSlots(onSuccess){
             let response = request;
             if(request.status === 200){
                 let res = JSON.parse(request.responseText);
-                onSuccess(res);
+                alert('ok')
+                setTimeout(onSuccess(res), 5000);
             } else if(request.status === 400){
                 console.error("Une erreur s'est produite : ", response.status);
             } else {

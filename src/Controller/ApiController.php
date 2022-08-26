@@ -22,8 +22,8 @@ class ApiController extends AbstractController
         BookingRepository $bookingRepo,
     ): Response {
         $weekSlots = $weekslotRepo->findAll();
-        $meetingRooms = $meetingRoomRepo->findAll();
-        $bookings = $bookingRepo->findFromTodayOnward();
+        //$meetingRooms = $meetingRoomRepo->findAll();
+        //$bookings = $bookingRepo->findFromTodayOnward();
         $begin =  new \DateTime(); // now();
         $end =  new \DateTime();
         $end->modify('+60 day');
@@ -48,6 +48,7 @@ class ApiController extends AbstractController
                 }   
             }
         }
+        
         $apiResponse = new JsonResponse($response, 200, []);
         return $apiResponse;
     }
