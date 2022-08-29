@@ -3,10 +3,10 @@
 //let btnQuitRoomSelection = document.querySelector('#btnQuitRoomSelection')
 //let btnValidRoomSelection = document.querySelector('#btnValidRoomSelection')
 //let sectionRoom = document.querySelector('#salle_available')
-//localStorage.setItem('basket','[]');
-//let basket = [];
-
-/*btnBookRoom.forEach(btn=>{
+localStorage.setItem('basket','[]');
+let basket = [];
+/*
+btnBookRoom.forEach(btn=>{
     btn.addEventListener('click',ev=>{
         dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
         if (!localStorage.getItem('basket')){
@@ -32,3 +32,6 @@ btnQuitRoomSelection.addEventListener('click',ev => {
     sectionRoom.classList.toggle("salle_available_toggled");
     localStorage.setItem('purchasingInfo','');
 })*/
+
+
+
