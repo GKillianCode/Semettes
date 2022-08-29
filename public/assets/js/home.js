@@ -55,7 +55,7 @@ function drawCalendar(events){
                 info.backgroundColor='red';
             }
                 let arrayOfDomNodes = []
-                info.event.extendedProps.room.forEach(e => {
+                Object.values(info.event.extendedProps.room).forEach(e => {
                 let room = document.createElement('p')
                 room.innerHTML = e
                 arrayOfDomNodes.push(room)
