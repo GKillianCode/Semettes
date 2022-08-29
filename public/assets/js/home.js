@@ -46,7 +46,7 @@ function drawCalendar(events){
                 // sectionRoom.classList.toggle("salle_available_toggled")
                 // localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
 
-                paneInfo.classList.remove('pane-info-open');
+                paneInfo.classList.add('pane-info-open');
             }
         },
         eventContent: function(info) {
