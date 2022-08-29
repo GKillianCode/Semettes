@@ -13,6 +13,7 @@ paneRecapOpenButton.addEventListener('click', () => {
 });
 
 function drawCalendar(events){
+    console.log(events);
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: { center: 'timeGridWeek,dayGrid' },

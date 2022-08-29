@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class ApiController extends AbstractController
@@ -47,13 +48,12 @@ class ApiController extends AbstractController
                     //foreach($roomAvailable as &$r){
                         //$r = $meetingRoomRepo->findById($r);
                     //};
-                    //dd($roomAvailable);
                     $response[] = [
                         'start' => $start->format('Y-m-d H:i:s'),
                         'end' => $finish->format('Y-m-d H:i:s'),
                         'extendedProps' => [
                             'room' => $roomAvailable,
-                            'isClickable' => $isClickable = count($roomAvailable) === 0 ? false : true,
+                            'isClickable' => $isClickable = count($roomAvailable) === 0 ? true : false,
                         ],
                     ];
                 }   
