@@ -10,6 +10,7 @@ paneInfoCloseButton.addEventListener('click', () => {
 
 paneRecapOpenButton.addEventListener('click', () => {
     paneRecap.classList.toggle('pane-recap-open');
+    paneInfo.classList.remove('pane-info-open');
 });
 
 function drawCalendar(events){
@@ -47,7 +48,11 @@ function drawCalendar(events){
                 // sectionRoom.classList.toggle("salle_available_toggled")
                 // localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
 
-                paneInfo.classList.add('pane-info-open');
+                paneInfo.classList.remove('pane-info-open');
+                setTimeout(() => {
+                    paneInfo.classList.add('pane-info-open')
+                }, 200);
+                paneRecap.classList.remove('pane-recap-open');
             }
         },
         eventContent: function(info) {

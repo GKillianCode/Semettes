@@ -65,10 +65,10 @@
 }
 
 .pane-recap{
-    width: 350px;
+    width: 450px;
     position: fixed;
     z-index: 50;
-    right: -350px;
+    right: -450px;
     top: 0;
     border-left: 2px solid #444;
     transition: .2s;
@@ -80,5 +80,45 @@
 .pane-recap-openButton{
     position: absolute;
     top: 60px;
-    left: -43px;
+    left: -44px;
+    border-radius: 2px 0 0 2px;
+}
+.recap-list{
+    max-height: 76vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    overflow-y: scroll;
+}
+.recap-item{
+    display: grid;
+    grid-template-columns: 100px 1fr 80px;
+    justify-content: start;
+    list-style-type: none;
+    min-height: 100px;
+}
+.item-name{
+    font-size: 20px;
+    font-weight: 600;
+}
+.item-info-price{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 600;
+    border-left: 1px solid #222;
+    padding: 10px;
+}
+
+.info-date, .info-hour{
+    font-weight: 600;
+}
+
+.orderButton{
+    width: calc(100% - 20px);
+    margin-left: 10px;
+    margin-right: 10px;
 }
