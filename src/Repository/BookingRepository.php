@@ -74,6 +74,13 @@ class BookingRepository extends ServiceEntityRepository
                     'end' => $end->format('Y-m-d H:i:s')
                 ]
             );
+<<<<<<< HEAD
+=======
+
+            // returns an array of arrays (i.e. a raw data set)
+            return $resultSet->fetchAllAssociative();
+        }
+>>>>>>> c93ca2c2cfbbc7eaf6d763ce2bf1a9718bb5e8f0
 
             // returns an array of arrays (i.e. a raw data set)
             return $resultSet->fetchAllAssociative();

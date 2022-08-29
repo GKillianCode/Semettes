@@ -44,6 +44,9 @@ class ApiController extends AbstractController
                     }
                     $roomAvailable = array_diff($meetingRooms,$rooms);
 
+                    //foreach($roomAvailable as &$r){
+                        //$r = $meetingRoomRepo->findById($r);
+                    //};
                     $response[] = [
                         'start' => $start->format('Y-m-d H:i:s'),
                         'end' => $finish->format('Y-m-d H:i:s'),

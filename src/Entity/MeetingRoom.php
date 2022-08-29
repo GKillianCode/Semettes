@@ -16,6 +16,7 @@ class MeetingRoom
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['meeting_rooms'])]
     private $id;
 
     /**
