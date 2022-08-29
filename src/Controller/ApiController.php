@@ -58,7 +58,7 @@ class ApiController extends AbstractController
                 }   
             }
         }
-        dd($response);
+
         $apiResponse = new JsonResponse($response, 200, []);
         return $apiResponse;
     }
