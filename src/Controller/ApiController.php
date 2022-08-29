@@ -18,7 +18,6 @@ class ApiController extends AbstractController
         WeekSlotRepository $weekslotRepo,
         MeetingRoomRepository $meetingRoomRepo,
         BookingRepository $bookingRepo,
-        SerializerInterface $serializer
     ): Response {
         $weekSlots = $weekslotRepo->findBy([
             'is_opened' => true
@@ -60,7 +59,6 @@ class ApiController extends AbstractController
                 }   
             }
         }
-
         $apiResponse = new JsonResponse($response, 200, []);
         return $apiResponse;
     }

@@ -12,6 +12,7 @@ paneInfoCloseButton.addEventListener('click', () => {
 
 paneRecapOpenButton.addEventListener('click', () => {
     paneRecap.classList.toggle('pane-recap-open');
+    paneInfo.classList.remove('pane-info-open');
 });
 
     function drawCalendar(events){
@@ -91,7 +92,11 @@ paneRecapOpenButton.addEventListener('click', () => {
                         })
                     })
 
-                    paneInfo.classList.add('pane-info-open');
+                paneInfo.classList.remove('pane-info-open');
+                setTimeout(() => {
+                    paneInfo.classList.add('pane-info-open')
+                }, 200);
+                paneRecap.classList.remove('pane-recap-open');
                 }       
                     
                     
