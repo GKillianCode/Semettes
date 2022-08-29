@@ -76,7 +76,7 @@ class BookingRepository extends ServiceEntityRepository
             );
 
             // returns an array of arrays (i.e. a raw data set)
-            return $resultSet->fetchAllAssociative();
+            return (array)$resultSet->fetchAllAssociative();
         }
 
 //    /**
