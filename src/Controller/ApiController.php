@@ -21,7 +21,9 @@ class ApiController extends AbstractController
         BookingRepository $bookingRepo,
         SerializerInterface $serializer
     ): Response {
-        $weekSlots = $weekslotRepo->findAll();
+        $weekSlots = $weekslotRepo->findBy([
+            'is_opened' => true
+        ]);
         $bookings = $bookingRepo->findFromTodayOnward();
         $begin =  new \DateTime(); // now();
         $end =  new \DateTime();
@@ -55,6 +57,7 @@ class ApiController extends AbstractController
                             'isClickable' => $isClickable = count($roomAvailable) === 0 ? false : true,
                         ],
                     ];
+                    
                 }   
             }
         }
