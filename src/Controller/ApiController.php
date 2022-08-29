@@ -41,7 +41,7 @@ class ApiController extends AbstractController
                     }
                     $rooms = $bookingRepo->findFromdXtoDy($start,$finish);
                     foreach($rooms as &$room){
-                        $room = $room['meeting_room_id_id'];
+                        $room = $room['meeting_room_id'];
                     }
                     $roomAvailable = array_diff($meetingRooms,$rooms);
 
@@ -53,7 +53,7 @@ class ApiController extends AbstractController
                         'end' => $finish->format('Y-m-d H:i:s'),
                         'extendedProps' => [
                             'room' => $roomAvailable,
-                            'isClickable' => $isClickable = count($roomAvailable) === 0 ? true : false,
+                            'isClickable' => $isClickable = count($roomAvailable) === 0 ? false : true,
                         ],
                     ];
                 }   
