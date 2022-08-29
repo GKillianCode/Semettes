@@ -54,17 +54,7 @@ class BookingRepository extends ServiceEntityRepository
     public function findFromdXtoDy(\DateTime $start, \DateTime $end): array
         {
             $conn = $this->getEntityManager()->getConnection();
-
-            /*$sql = '
-                SELECT * FROM booking b
-                INNER JOIN meeting_room m ON b.meeting_room_id_id = m.id
-                WHERE ((b.end_time > CAST(:start as date)
-                AND b.end_time < CAST(:end as date)))
-                OR ((b.start_time > CAST(:start as date)
-                AND b.start_time < CAST(:end as date)))
-                OR ((b.start_time = CAST(:start as date)
-                AND b.end_time = CAST(:end as date)))
-                ';*/
+            
             $sql = '
                 SELECT b.meeting_room_id_id FROM booking b
                 INNER JOIN meeting_room m ON b.meeting_room_id_id = m.id
@@ -84,12 +74,17 @@ class BookingRepository extends ServiceEntityRepository
                     'end' => $end->format('Y-m-d H:i:s')
                 ]
             );
+<<<<<<< HEAD
+=======
 
             // returns an array of arrays (i.e. a raw data set)
             return $resultSet->fetchAllAssociative();
         }
+>>>>>>> c93ca2c2cfbbc7eaf6d763ce2bf1a9718bb5e8f0
 
-   
+            // returns an array of arrays (i.e. a raw data set)
+            return $resultSet->fetchAllAssociative();
+        }
 
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
