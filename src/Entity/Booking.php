@@ -28,12 +28,6 @@ class Booking
     private $start_time;
 
     /**
-     * @ORM\OneToOne(targetEntity=WeekSlot::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $week_slot_id;
-
-    /**
      * @ORM\OneToOne(targetEntity=MeetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
      */
     private $meeting_room_id;
@@ -73,18 +67,6 @@ class Booking
     public function setStartTime(\DateTimeInterface $start_time): self
     {
         $this->start_time = $start_time;
-
-        return $this;
-    }
-
-    public function getWeekSlotId(): ?weekSlot
-    {
-        return $this->week_slot_id;
-    }
-
-    public function setWeekSlotId(weekSlot $week_slot_id): self
-    {
-        $this->week_slot_id = $week_slot_id;
 
         return $this;
     }
