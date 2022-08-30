@@ -6,6 +6,7 @@ const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
 let rooms_bdd =[];
 
 
+
 paneInfoCloseButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
 });
@@ -56,7 +57,9 @@ paneRecapOpenButton.addEventListener('click', () => {
                     });
                     rooms.forEach(e => {
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
-                            let clone = template.content.cloneNode(true)
+                            let clone = template.content.cloneNode(true);
+                            let element = clone.querySelector(".pane-info-room");
+                            element.id = "room-"+e.id;
                             let image = clone.querySelector(".template-image");
                             image.src =  '/assets/imgs/' + e.room_image_name
                             let roomName = clone.querySelector(".template-room-name");
@@ -69,7 +72,6 @@ paneRecapOpenButton.addEventListener('click', () => {
                         }
                     })
                     let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
-                    console.log(btnBookRoom)
                     btnBookRoom.forEach(btn=>{
                         btn.addEventListener('click',ev=>{
                             dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
@@ -104,12 +106,16 @@ paneRecapOpenButton.addEventListener('click', () => {
             },
             eventContent: function(info) {
                 if (info.event._def.extendedProps.isClickable === true){  
-                    info.backgroundColor='red';
+                    info.backgroundColor='#b25f8f';
+                } else {
+                    info.backgroundColor='#9c425e';
                 }
                     let arrayOfDomNodes = []
                     rooms.forEach(e => {
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
-                            let room = document.createElement('p');
+                            let room = document.createElement('a');
+                            room.href = "#room-"+e.id;
+                            room.className = "room-link bg-sPink";
                             room.innerHTML = e.room_name;
                             arrayOfDomNodes.push(room);
                         }
