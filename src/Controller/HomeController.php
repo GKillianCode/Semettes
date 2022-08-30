@@ -8,15 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', methods: ['GET'])]
+    #[Route('/', name: 'home_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('home/index.html.twig', []);
     }
 
-    #[Route('/booking', methods: ['POST', 'GET'])]
+    #[Route('/booking', name: 'home_booking', methods: ['POST', 'GET'])]
     public function booking(): Response
     {
+        if (count($_POST) > 0){
+            dd($_POST);
+        }
         return $this->render('home/booking_form.html.twig', ['data'=>'Hello']);
     }
 }

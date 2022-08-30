@@ -40,3 +40,4 @@ const apiGetAllRooms = (onSuccess) => {
     })
     request.send();
 }
+
