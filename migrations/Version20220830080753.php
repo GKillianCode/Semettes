@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220830075028 extends AbstractMigration
+final class Version20220830080753 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -33,7 +33,7 @@ final class Version20220830075028 extends AbstractMigration
         $this->addSql('ALTER TABLE booking DROP FOREIGN KEY FK_E00CEDDECCC5381E');
         $this->addSql('DROP INDEX IDX_E00CEDDECCC5381E ON booking');
         $this->addSql('ALTER TABLE booking ADD meeting_room_id_id INT DEFAULT NULL, DROP meeting_room_id');
-        $this->addSql('ALTER TABLE booking ADD CONSTRAINT FK_E00CEDDE8C68C142 FOREIGN KEY (meeting_room_id_id) REFERENCES meeting_room (id) ON UPDATE NO ACTION ON DELETE NO ACTION');
+        $this->addSql('ALTER TABLE booking ADD CONSTRAINT FK_E00CEDDE8C68C142 FOREIGN KEY (meeting_room_id_id) REFERENCES meeting_room (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_E00CEDDE8C68C142 ON booking (meeting_room_id_id)');
     }
 }
