@@ -3,6 +3,9 @@ const paneInfo = document.querySelector('.pane-info');
 const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
 const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
+let rooms_bdd =[];
+
+
 
 paneInfoCloseButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
@@ -15,8 +18,9 @@ paneRecapOpenButton.addEventListener('click', () => {
 
     function drawCalendar(events){
         apiGetAllRooms((rooms)=>{
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+            rooms_bdd = rooms;
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: { center: 'timeGridWeek,dayGrid' },
             initialView:'timeGridWeek',
             header:{
@@ -86,9 +90,10 @@ paneRecapOpenButton.addEventListener('click', () => {
                                 basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
                                 console.log(basket)
                             }
-                            localStorage.setItem('basket',JSON.stringify(basket))    
-                        })
-                    })
+                            localStorage.setItem('basket',JSON.stringify(basket));
+                            update_basket();   
+                        });
+                    });
 
                 paneInfo.classList.remove('pane-info-open');
                 setTimeout(() => {
@@ -119,10 +124,9 @@ paneRecapOpenButton.addEventListener('click', () => {
                 return { domNodes: arrayOfDomNodes }    
             }
         });
-        calendar.render();
+    calendar.render();
     }
 )};
-
 
 apiGetAllSlots(drawCalendar);
 
