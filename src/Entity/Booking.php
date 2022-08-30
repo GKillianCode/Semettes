@@ -25,14 +25,7 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start_time;
-
-    /**
-     * @ORM\OneToOne(targetEntity=MeetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
-     */
-    private $meeting_room_id;
-
- 
+    private $start_time; 
 
     /**
      * @ORM\Column(type="datetime")
@@ -40,10 +33,30 @@ class Booking
     private $end_time;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="bookings")
+     * @ORM\ManyToOne(targetEntity=MeetingRoom::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $meeting_room;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -74,19 +87,6 @@ class Booking
         return $this;
     }
 
-    public function getMeetingRoomId(): ?meetingRoom
-    {
-        return $this->meeting_room_id;
-    }
-
-    public function setMeetingRoomId(?meetingRoom $meeting_room_id): self
-    {
-        $this->meeting_room_id = $meeting_room_id;
-
-        return $this;
-    }
-
-
     public function getEndTime(): ?\DateTimeInterface
     {
         return $this->end_time;
@@ -99,14 +99,62 @@ class Booking
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getMeetingRoom(): ?MeetingRoom
     {
-        return $this->user;
+        return $this->meeting_room;
     }
 
-    public function setUser(?user $user): self
+    public function setMeetingRoom(?MeetingRoom $meeting_room): self
     {
-        $this->user = $user;
+        $this->meeting_room = $meeting_room;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

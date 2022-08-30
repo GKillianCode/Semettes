@@ -8,7 +8,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
     </button>
 
-    <ul id="container" class="d-flex flex-wrap">
+    <ul id="container" class="">
         <template id="card-template">
             <li class="pane-info-room d-flex flex-column">
                 <img id=""class="pane-info-img rounded-1 template-image" src="" alt="" class="rounded-1">
@@ -36,21 +36,24 @@
 
     <h2 class="text-center my-4">Votre panier !</h2>
 
-    <ul class="recap-list mt-4">
-        <li class="recap-item bg-sPink rounded-1 overflow-hidden">
-            <img src="https://picsum.photos/100/100" class="m-0 p-0" alt="">
-            <div class="item-infos px-3 d-flex flex-column justify-content-center">
-                <p class="item-name py-0 my-0">Room A</p>
-                <p class="item-maxperson py-1 my-0">20 personnes maximum</p>
-                <p class="item-date py-0 my-0">Le <span class="info-date">29/08/2022</span> de <span class="info-hour">blah</span></p>
-            </div>
-            <div class="item-info-price">
-                <p class="item-price m-0 p-0">60€</p>
-            </div>
-        </li>
+    <ul id="container-recap" class="recap-list mt-4">
+        <template id="template-card-recap">
+            <li class="recap-item bg-sPink rounded-1 overflow-hidden">
+                <img src="https://picsum.photos/100/100" class="m-0 p-0 template-image-recap" alt="">
+                <div class="item-infos px-3 d-flex flex-column justify-content-center">
+                    <p class="item-name py-0 my-0 template-room-recap">Room A</p>
+                    <p class="item-maxperson py-1 my-0 template-capacity-recap"> personnes maximum</p>
+                    <p class="item-date py-0 my-0 ">Le 
+                    <span class="info-date template-date-recap">29/08/2022</span> de <span class="info-hour template-hour-recap">blah</span></p>
+                </div>
+                <div class="item-info-price">
+                    <p class="item-price m-0 p-0 template-price-recap">60€</p>
+                </div>
+            </li>
+        </template>
     </ul>
 
-    <h3 class="text-center" style="font-size: 20px">Total: 60€</h3>
+    <h3 id="price-total" class="text-center" style="font-size: 20px">Total: 60€</h3>
     
     <button class="orderButton btn btn-sPink py-2">Passer votre commande</button>
 </div>

@@ -56,8 +56,8 @@ class BookingRepository extends ServiceEntityRepository
             $conn = $this->getEntityManager()->getConnection();
             
             $sql = '
-                SELECT b.meeting_room_id_id FROM booking b
-                INNER JOIN meeting_room m ON b.meeting_room_id_id = m.id
+                SELECT b.meeting_room_id FROM booking b
+                INNER JOIN meeting_room m ON b.meeting_room_id = m.id
                 WHERE 
                 (CAST(b.start_time as datetime) = CAST(:start as datetime) AND CAST(b.end_time as datetime) = CAST(:end as datetime))
                 OR 

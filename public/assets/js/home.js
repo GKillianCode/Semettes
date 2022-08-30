@@ -3,6 +3,7 @@ const paneInfo = document.querySelector('.pane-info');
 const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
 const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
+let rooms_bdd =[];
 
 
 
@@ -17,8 +18,9 @@ paneRecapOpenButton.addEventListener('click', () => {
 
     function drawCalendar(events){
         apiGetAllRooms((rooms)=>{
-        let calendarEl = document.getElementById('calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+            rooms_bdd = rooms;
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: { center: 'timeGridWeek,dayGrid' },
             initialView:'timeGridWeek',
             header:{
@@ -55,8 +57,9 @@ paneRecapOpenButton.addEventListener('click', () => {
                     });
                     rooms.forEach(e => {
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
-                            let clone = template.content.cloneNode(true)
-                            console.log(e)
+                            let clone = template.content.cloneNode(true);
+                            let element = clone.querySelector(".pane-info-room");
+                            element.id = "room-"+e.id;
                             let image = clone.querySelector(".template-image");
                             image.src =  '/assets/imgs/' + e.room_image_name
                             let roomName = clone.querySelector(".template-room-name");
@@ -69,7 +72,6 @@ paneRecapOpenButton.addEventListener('click', () => {
                         }
                     })
                     let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
-                    console.log(btnBookRoom)
                     btnBookRoom.forEach(btn=>{
                         btn.addEventListener('click',ev=>{
                             dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
@@ -88,9 +90,10 @@ paneRecapOpenButton.addEventListener('click', () => {
                                 basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
                                 console.log(basket)
                             }
-                            localStorage.setItem('basket',JSON.stringify(basket))    
-                        })
-                    })
+                            localStorage.setItem('basket',JSON.stringify(basket));
+                            update_basket();   
+                        });
+                    });
 
                 paneInfo.classList.remove('pane-info-open');
                 setTimeout(() => {
@@ -103,12 +106,16 @@ paneRecapOpenButton.addEventListener('click', () => {
             },
             eventContent: function(info) {
                 if (info.event._def.extendedProps.isClickable === true){  
-                    info.backgroundColor='red';
+                    info.backgroundColor='#b25f8f';
+                } else {
+                    info.backgroundColor='#9c425e';
                 }
                     let arrayOfDomNodes = []
                     rooms.forEach(e => {
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
-                            let room = document.createElement('p');
+                            let room = document.createElement('a');
+                            room.href = "#room-"+e.id;
+                            room.className = "room-link bg-sPink";
                             room.innerHTML = e.room_name;
                             arrayOfDomNodes.push(room);
                         }
@@ -117,10 +124,9 @@ paneRecapOpenButton.addEventListener('click', () => {
                 return { domNodes: arrayOfDomNodes }    
             }
         });
-        calendar.render();
+    calendar.render();
     }
 )};
-
 
 apiGetAllSlots(drawCalendar);
 
