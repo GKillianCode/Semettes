@@ -10,8 +10,14 @@
 }
 .pane-info-open{
     left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .pane-info ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     overflow-y: scroll;

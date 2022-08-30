@@ -25,14 +25,7 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start_time;
-
-    /**
-     * @ORM\OneToOne(targetEntity=MeetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
-     */
-    private $meeting_room_id;
-
- 
+    private $start_time; 
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,6 +37,12 @@ class Booking
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MeetingRoom::class, inversedBy="bookings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $meeting_room;
 
     public function getId(): ?int
     {
@@ -74,19 +73,6 @@ class Booking
         return $this;
     }
 
-    public function getMeetingRoomId(): ?meetingRoom
-    {
-        return $this->meeting_room_id;
-    }
-
-    public function setMeetingRoomId(?meetingRoom $meeting_room_id): self
-    {
-        $this->meeting_room_id = $meeting_room_id;
-
-        return $this;
-    }
-
-
     public function getEndTime(): ?\DateTimeInterface
     {
         return $this->end_time;
@@ -107,6 +93,18 @@ class Booking
     public function setUser(?user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMeetingRoom(): ?MeetingRoom
+    {
+        return $this->meeting_room;
+    }
+
+    public function setMeetingRoom(?MeetingRoom $meeting_room): self
+    {
+        $this->meeting_room = $meeting_room;
 
         return $this;
     }
