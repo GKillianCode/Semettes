@@ -17,6 +17,9 @@ class HomeController extends AbstractController
     #[Route('/booking', name: 'home_booking', methods: ['POST', 'GET'])]
     public function booking(): Response
     {
+        if (count($_POST) > 0){
+            dd($_POST);
+        }
         return $this->render('home/booking_form.html.twig', ['data'=>'Hello']);
     }
 }

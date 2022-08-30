@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <div class='flex-container mt-5 w-50 d-flex justify-content-center mx-auto' style='width=50%'>
-<form method="post" accept-charset="UTF-8">
+<form method="POST" accept-charset="UTF-8">
     
     <input type="hidden" id="basket" name="basket" value="">
 
@@ -32,4 +33,9 @@
     <input class="form-control bg-sPurple text-white" id='submit-booking'type="submit" value="envoyer">
 </form>
 </div>
+<script>
+let inputBookings = document.querySelector('#basket');
+    inputBookings.value = localStorage.getItem('basket');
+    console.log(inputBookings)
+</script>
 {% endblock %}
