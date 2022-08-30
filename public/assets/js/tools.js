@@ -62,7 +62,7 @@ function update_basket(){
     })
     let pricesArray = document.querySelectorAll(".template-price-recap")
     priceTotal.textContent = Array.from(pricesArray)
-        .map(price => parseInt(price.textContent))
+        .map(price => parseFloat(price.textContent))
         .reduce((acc,price)=> acc + price)
 }
 
