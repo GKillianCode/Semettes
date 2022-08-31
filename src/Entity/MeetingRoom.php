@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\MeetingRoomRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MeetingRoomRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MeetingRoomRepository::class)
@@ -15,37 +18,48 @@ class MeetingRoom
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['meeting_rooms'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $room_image_name;
 
     /**
      * @ORM\Column(type="smallint")
      */
+    #[Groups(['meeting_rooms'])]
     private $max_person;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['meeting_rooms'])]
     private $rate;
 
     /**
-     * @ORM\OneToOne(targetEntity=Booking::class, mappedBy="meeting_room_id", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="meeting_room")
      */
-    private $booking;
+    private $bookings;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,25 +126,34 @@ class MeetingRoom
         return $this;
     }
 
-    public function getBooking(): ?Booking
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
     {
-        return $this->booking;
+        return $this->bookings;
     }
 
-    public function setBooking(?Booking $booking): self
+    public function addBooking(Booking $booking): self
     {
-        // unset the owning side of the relation if necessary
-        if ($booking === null && $this->booking !== null) {
-            $this->booking->setMeetingRoomId(null);
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setMeetingRoom($this);
         }
-
-        // set the owning side of the relation if necessary
-        if ($booking !== null && $booking->getMeetingRoomId() !== $this) {
-            $booking->setMeetingRoomId($this);
-        }
-
-        $this->booking = $booking;
 
         return $this;
     }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getMeetingRoom() === $this) {
+                $booking->setMeetingRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

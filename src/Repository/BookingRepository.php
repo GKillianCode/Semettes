@@ -39,6 +39,46 @@ class BookingRepository extends ServiceEntityRepository
         }
     }
 
+    public function findFromTodayOnward(): array
+        {
+            $now = date('Y-m-d H:i:s');
+            return $this->createQueryBuilder('b')
+                ->andWhere('b.start_time >= :time')
+                ->setParameter('time', $now)
+                //->orderBy('b.id', 'ASC')
+                //->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+    public function findFromdXtoDy(\DateTime $start, \DateTime $end): array
+        {
+            $conn = $this->getEntityManager()->getConnection();
+            
+            $sql = '
+                SELECT b.meeting_room_id FROM booking b
+                INNER JOIN meeting_room m ON b.meeting_room_id = m.id
+                WHERE 
+                (CAST(b.start_time as datetime) = CAST(:start as datetime) AND CAST(b.end_time as datetime) = CAST(:end as datetime))
+                OR 
+                (CAST(b.end_time as datetime) > CAST(:start as date) AND CAST(b.end_time as datetime) < CAST(:end as date))
+                OR 
+                (CAST(b.start_time as datetime) > CAST(:start as date)
+                AND CAST(b.start_time as datetime) < CAST(:end as date))
+                ';
+                
+            $stmt = $conn->prepare($sql);
+            $resultSet = $stmt->executeQuery(
+                [
+                    'start' => $start->format('Y-m-d H:i:s'),
+                    'end' => $end->format('Y-m-d H:i:s')
+                ]
+            );
+
+            // returns an array of arrays (i.e. a raw data set)
+            return (array)$resultSet->fetchAllAssociative();
+        }
+
 //    /**
 //     * @return Booking[] Returns an array of Booking objects
 //     */

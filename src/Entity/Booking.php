@@ -25,23 +25,38 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_time;
+    private $start_time; 
 
     /**
-     * @ORM\OneToOne(targetEntity=weekSlot::class, cascade={"persist", "remove"})
+     * @ORM\Column(type="datetime")
+     */
+    private $end_time;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=MeetingRoom::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $week_slot_id;
+    private $meeting_room;
 
     /**
-     * @ORM\OneToOne(targetEntity=meetingRoom::class, inversedBy="booking", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $meeting_room_id;
+    private $firstname;
 
     /**
-     * @ORM\OneToOne(targetEntity=user::class, inversedBy="booking", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $user_id;
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
 
     public function getId(): ?int
     {
@@ -60,50 +75,86 @@ class Booking
         return $this;
     }
 
-    public function getDateTime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->date_time;
+        return $this->start_time;
     }
 
-    public function setDateTime(\DateTimeInterface $date_time): self
+    public function setStartTime(\DateTimeInterface $start_time): self
     {
-        $this->date_time = $date_time;
+        $this->start_time = $start_time;
 
         return $this;
     }
 
-    public function getWeekSlotId(): ?weekSlot
+    public function getEndTime(): ?\DateTimeInterface
     {
-        return $this->week_slot_id;
+        return $this->end_time;
     }
 
-    public function setWeekSlotId(weekSlot $week_slot_id): self
+    public function setEndTime(\DateTimeInterface $end_time): self
     {
-        $this->week_slot_id = $week_slot_id;
+        $this->end_time = $end_time;
 
         return $this;
     }
 
-    public function getMeetingRoomId(): ?meetingRoom
+    public function getMeetingRoom(): ?MeetingRoom
     {
-        return $this->meeting_room_id;
+        return $this->meeting_room;
     }
 
-    public function setMeetingRoomId(?meetingRoom $meeting_room_id): self
+    public function setMeetingRoom(?MeetingRoom $meeting_room): self
     {
-        $this->meeting_room_id = $meeting_room_id;
+        $this->meeting_room = $meeting_room;
 
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getFirstname(): ?string
     {
-        return $this->user_id;
+        return $this->firstname;
     }
 
-    public function setUserId(?user $user_id): self
+    public function setFirstname(string $firstname): self
     {
-        $this->user_id = $user_id;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

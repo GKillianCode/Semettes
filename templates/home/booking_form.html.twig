@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class='flex-container mt-5 w-50 d-flex justify-content-center mx-auto' style='width=50%'>
+<form method="POST" accept-charset="UTF-8">
+    
+    <input type="hidden" id="basket" name="basket" value="">
+
+    <h3><label class='mb-4'for="loginName">Réservation de salle(s)</label></h3>
+    <div class='d-flex flex-column gap-3 '>
+    <div class="input-group-prepend d-flex" >
+          <span class="input-group-text bg-sPink text-sBlack" id="prenom">prenom</span>
+    <input id="firstname" class="form-control" type="text" name="firstname"
+        value="" placeholder="votre prénom">
+        </div>
+        <div class="input-group-prepend d-flex" >
+          <span class="input-group-text bg-sPink text-sBlack" id="nom">nom</span>
+    <input id="name" class="form-control" type="text" name="name"
+        value="" placeholder="votre nom">
+        </div>
+        <div class="input-group-prepend d-flex" >
+          <span class="input-group-text bg-sPink text-sBlack" id="tel">n°</span>
+    <input id="tel" class="form-control" type="text" name="tel"
+        value="" placeholder="votre téléphone">
+        </div>
+        <div class="input-group-prepend d-flex" >
+          <span class="input-group-text bg-sPink text-sBlack" id="email">email</span>
+    <input id="email" class="form-control" type="text" name="email"
+        value="" placeholder="votre email">
+        </div>
+    
+    <input class="form-control bg-sPurple text-white" id='submit-booking'type="submit" value="envoyer">
+</form>
+</div>
+<script>
+let inputBookings = document.querySelector('#basket');
+    inputBookings.value = localStorage.getItem('basket');
+    console.log(inputBookings)
+</script>
+{% endblock %}
