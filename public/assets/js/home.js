@@ -48,6 +48,7 @@ paneRecapOpenButton.addEventListener('click', () => {
                 hour12: false
             },
             eventClick: function(info) {
+                
                 if (info.event.extendedProps.isClickable === true){
                     localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
                     let container = document.querySelector("#container");
@@ -56,6 +57,7 @@ paneRecapOpenButton.addEventListener('click', () => {
                         li.remove();
                     });
                     rooms.forEach(e => {
+                        
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
                             let clone = template.content.cloneNode(true);
                             let element = clone.querySelector(".pane-info-room");
