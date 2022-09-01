@@ -52,6 +52,9 @@ nav{
     text-decoration: none;
     color: #FFF;
 }
+.fc-today{
+    background-color: red !important;
+}
 
 .fc-timegrid-axis-frame,
 .fc-timegrid-slot-label-frame,
@@ -67,7 +70,10 @@ nav{
     row-gap: 5px;
     padding: 5px;
     border-radius: 2px;
+    
 }
+
+
 
 .room-link{
     text-decoration: none;
@@ -159,4 +165,12 @@ nav{
     width: calc(100% - 20px);
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.template-btnValidOneRoom{
+    margin:10px 0 45px 0;
+}
+
+.template-room-name{
+    font-weight: 700;
 }
