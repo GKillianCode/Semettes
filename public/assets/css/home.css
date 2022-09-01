@@ -64,6 +64,15 @@
     border-radius: 2px;
 }
 
+.room-link{
+    text-decoration: none;
+    display: inline;
+    text-align: center;
+    border-radius: 2px;
+    /* padding: 5px; */
+    color: #111;
+}
+
 .fermeture{
     display: flex;
     flex-direction: column;
@@ -71,15 +80,6 @@
 }
 .fermeture-smiley{
     font-size: 24px;
-}
-
-.room-link{
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    border-radius: 2px;
-    padding: 5px;
-    color: #111;
 }
 
 .calendar-container{
