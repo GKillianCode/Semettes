@@ -48,66 +48,55 @@ function drawCalendar(events){
                 hour12: false
             },
             eventClick: function(info) {
-                
 
+                const slot = document.querySelector('.display-date')
+                .textContent = (new Date(Date.parse(info.event.startStr.substr(0, 10))).toLocaleDateString());
 
-                if (info.event.extendedProps.isClickable === true){
-                    
-                    const slot = document.querySelector('.display-date')
-                    const dateOfTheDay= new Date( Date.parse(info.event.startStr.substr(0, 10)) ).toLocaleDateString();
-                    slot.textContent=dateOfTheDay
-                    
-                    localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
-                    
-                    let container = document.querySelector("#container");
-                    let template = document.querySelector("#card-template");
-
-                    document.querySelectorAll("#container li").forEach(li=>{
-                        li.remove();
-                    });
-                    rooms.forEach(e => {
-                    
-                        
-    
-                        if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
-                            let clone = template.content.cloneNode(true);
-                            let element = clone.querySelector(".pane-info-room");
-                            element.id = "room-"+e.id;
-                            let image = clone.querySelector(".template-image");
-                            image.src =  '/assets/imgs/' + e.room_image_name
-                            let roomName = clone.querySelector(".template-room-name");
-                            roomName.textContent =e.room_name
-                            let description = clone.querySelector(".template-description");
-                            description.textContent= e.room_description
-                            let btnValidOneRoom = clone.querySelector(".template-btnValidOneRoom");
-                                btnValidOneRoom.id = e.id
-                            container.appendChild(clone);
-                        }
-                    })
-
-                    
-
-                    let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
-                    btnBookRoom.forEach(btn=>{
-                        btn.addEventListener('click',ev=>{
-                            dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
-                            if (!localStorage.getItem('basket')){
-                                localStorage.setItem('basket','[]');
+                if (info.event.extendedProps.isClosed === false){
+                    if (info.event.extendedProps.isClickable === true){
+                        localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+                        let container = document.querySelector("#roomcontainer");
+                        let template = document.querySelector("#card-template");
+                        document.querySelectorAll("#container li").forEach(li=>{
+                            li.remove();
+                        });
+                        rooms.forEach(e => {
+                            if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
+                                let clone = template.content.cloneNode(true);
+                                let element = clone.querySelector(".pane-info-room");
+                                element.id = "room-"+e.id;
+                                let image = clone.querySelector(".template-image");
+                                image.src =  '/assets/imgs/' + e.room_image_name
+                                let roomName = clone.querySelector(".template-room-name");
+                                roomName.textContent =e.room_name
+                                let description = clone.querySelector(".template-description");
+                                description.textContent= e.room_description
+                                let btnValidOneRoom = clone.querySelector(".template-btnValidOneRoom");
+                                    btnValidOneRoom.id = e.id
+                                container.appendChild(clone);
                             }
-                            let basket = JSON.parse(localStorage.getItem('basket'))
-                            let basketTemp = {
-                                'slot' : dataSlot,
-                                'room' : btn.id
-                            }
-                            
-                            if (!basket.map(el=>JSON.stringify(el)).includes(JSON.stringify(basketTemp))){
-                                basket.push(basketTemp)
-                            }else{
-                                basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
-                               
-                            }
-                            localStorage.setItem('basket',JSON.stringify(basket));
-                            update_basket();   
+                        })
+                        let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
+                        btnBookRoom.forEach(btn=>{
+                            btn.addEventListener('click',ev=>{
+                                dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
+                                if (!localStorage.getItem('basket')){
+                                    localStorage.setItem('basket','[]');
+                                }
+                                let basket = JSON.parse(localStorage.getItem('basket'))
+                                let basketTemp = {
+                                    'slot' : dataSlot,
+                                    'room' : btn.id
+                                }
+                                console.log(basketTemp.slot.end)
+                                if (!basket.map(el=>JSON.stringify(el)).includes(JSON.stringify(basketTemp))){
+                                    basket.push(basketTemp)
+                                }else{
+                                    basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
+                                    console.log(basket)
+                                }
+                                localStorage.setItem('basket',JSON.stringify(basket));
+                                update_basket();   
                         });
                     });
 
@@ -158,6 +147,3 @@ function drawCalendar(events){
 };
 
 apiGetAllSlots(drawCalendar);
-
-
-
