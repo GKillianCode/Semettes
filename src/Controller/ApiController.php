@@ -26,7 +26,7 @@ class ApiController extends AbstractController
 
         $begin =  new \DateTime(); // now();
         $end =  new \DateTime();
-        $end->modify('+60 day');
+        $end->modify('+1 day');
 
         $response = [];
 
