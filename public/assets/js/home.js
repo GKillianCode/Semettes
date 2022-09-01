@@ -49,15 +49,26 @@ paneRecapOpenButton.addEventListener('click', () => {
             },
             eventClick: function(info) {
                 
+
+
                 if (info.event.extendedProps.isClickable === true){
+                    
+                    const slot = document.querySelector('.display-date')
+                    const dateOfTheDay= new Date( Date.parse(info.event.startStr.substr(0, 10)) ).toLocaleDateString();
+                    slot.textContent=dateOfTheDay
+                    
                     localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
+                    
                     let container = document.querySelector("#container");
                     let template = document.querySelector("#card-template");
+
                     document.querySelectorAll("#container li").forEach(li=>{
                         li.remove();
                     });
                     rooms.forEach(e => {
+                    
                         
+    
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
                             let clone = template.content.cloneNode(true);
                             let element = clone.querySelector(".pane-info-room");
@@ -73,6 +84,9 @@ paneRecapOpenButton.addEventListener('click', () => {
                             container.appendChild(clone);
                         }
                     })
+
+                    
+
                     let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
                     btnBookRoom.forEach(btn=>{
                         btn.addEventListener('click',ev=>{
@@ -85,12 +99,12 @@ paneRecapOpenButton.addEventListener('click', () => {
                                 'slot' : dataSlot,
                                 'room' : btn.id
                             }
-                            console.log(basketTemp.slot.end)
+                            
                             if (!basket.map(el=>JSON.stringify(el)).includes(JSON.stringify(basketTemp))){
                                 basket.push(basketTemp)
                             }else{
                                 basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
-                                console.log(basket)
+                               
                             }
                             localStorage.setItem('basket',JSON.stringify(basket));
                             update_basket();   
