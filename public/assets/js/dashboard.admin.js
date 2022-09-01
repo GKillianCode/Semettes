@@ -1,10 +1,8 @@
-
 const paneInfo = document.querySelector('.pane-info');
 const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
 const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
 let rooms_bdd =[];
-
 
 paneInfoCloseButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
@@ -15,7 +13,7 @@ paneRecapOpenButton.addEventListener('click', () => {
     paneInfo.classList.remove('pane-info-open');
 });
 
-function drawCalendar(events){
+    function drawCalendar(events){
         apiGetAllRooms((rooms)=>{
             rooms_bdd = rooms;
             let calendarEl = document.getElementById('calendar');
@@ -32,9 +30,8 @@ function drawCalendar(events){
             // events: [
             //     {
             //         extendedProps: {
-            //             room : [1, 2, 3],
-            //             isClickable : true,
-            //             isClosed : false,
+            //             room : ['salle1','salle2'],
+            //             isClickable : true
             //         },
             //         start: '2022-08-23 08:00:00',
             //         end: '2022-08-23 12:00:00'
@@ -48,27 +45,14 @@ function drawCalendar(events){
                 hour12: false
             },
             eventClick: function(info) {
-                
-
-
                 if (info.event.extendedProps.isClickable === true){
-                    
-                    const slot = document.querySelector('.display-date')
-                    const dateOfTheDay= new Date( Date.parse(info.event.startStr.substr(0, 10)) ).toLocaleDateString();
-                    slot.textContent=dateOfTheDay
-                    
                     localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
-                    
                     let container = document.querySelector("#container");
                     let template = document.querySelector("#card-template");
-
                     document.querySelectorAll("#container li").forEach(li=>{
                         li.remove();
                     });
                     rooms.forEach(e => {
-                    
-                        
-    
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
                             let clone = template.content.cloneNode(true);
                             let element = clone.querySelector(".pane-info-room");
@@ -84,9 +68,6 @@ function drawCalendar(events){
                             container.appendChild(clone);
                         }
                     })
-
-                    
-
                     let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
                     btnBookRoom.forEach(btn=>{
                         btn.addEventListener('click',ev=>{
@@ -99,63 +80,50 @@ function drawCalendar(events){
                                 'slot' : dataSlot,
                                 'room' : btn.id
                             }
-                            
+                            console.log(basketTemp.slot.end)
                             if (!basket.map(el=>JSON.stringify(el)).includes(JSON.stringify(basketTemp))){
                                 basket.push(basketTemp)
                             }else{
                                 basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
-                               
+                                console.log(basket)
                             }
                             localStorage.setItem('basket',JSON.stringify(basket));
                             update_basket();   
                         });
                     });
 
-                    paneInfo.classList.remove('pane-info-open');
-                    setTimeout(() => {
-                        paneInfo.classList.add('pane-info-open')
-                    }, 200);
-                    paneRecap.classList.remove('pane-recap-open');
-                    }   
-                }
+                paneInfo.classList.remove('pane-info-open');
+                setTimeout(() => {
+                    paneInfo.classList.add('pane-info-open')
+                }, 200);
+                paneRecap.classList.remove('pane-recap-open');
+                }       
+                    
                     
             },
             eventContent: function(info) {
-                let arrayOfDomNodes = []
-
-                if(info.event._def.extendedProps.isClosed === false){
-                    if (info.event._def.extendedProps.isClickable === true){  
-                        info.backgroundColor='#b25f8f';
-                    } else {
-                        info.backgroundColor='#9c425e';
-                    }
-
+                if (info.event._def.extendedProps.isClickable === true){  
+                    info.backgroundColor='#b25f8f';
+                } else {
+                    info.backgroundColor='#9c425e';
+                }
+                    let arrayOfDomNodes = []
                     rooms.forEach(e => {
                         if(Object.values(info.event._def.extendedProps.room).includes(e.id)){
                             let room = document.createElement('a');
                             room.href = "#room-"+e.id;
                             room.className = "room-link bg-sPink";
-                            room.textContent = e.room_name;
+                            room.innerHTML = e.room_name;
                             arrayOfDomNodes.push(room);
                         }
-                    });
-                } else {
-                    info.backgroundColor='#272e3f';
-
-                    let isClosed = document.createElement('p');
-                    isClosed.className = 'fermeture';
-                    isClosed.innerHTML = 'Fermeture exceptionnelle <span class="fermeture-smiley">🥲</span>';
-                    arrayOfDomNodes.push(isClosed);
-                }
-
-                console.log(arrayOfDomNodes);
+                })
                     
                 return { domNodes: arrayOfDomNodes }    
             }
         });
     calendar.render();
-    });
-};
+    }
+)};
 
 apiGetAllSlots(drawCalendar);
 
