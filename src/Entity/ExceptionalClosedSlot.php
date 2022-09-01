@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\ExceptionalClosedSlotRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ExceptionalClosedSlotRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ExceptionalClosedSlotRepository::class)
@@ -20,38 +20,55 @@ class ExceptionalClosedSlot
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start;
+    private $closedDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="time")
      */
-    private $end;
+    private $startHour;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $endHour;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getStart(): ?\DateTimeInterface
+    public function getClosedDate(): ?\DateTimeInterface
     {
-        return $this->start;
+        return $this->closedDate;
     }
 
-    public function setStart(\DateTimeInterface $start): self
+    public function setClosedDate(\DateTimeInterface $closedDate): self
     {
-        $this->start = $start;
+        $this->closedDate = $closedDate;
 
         return $this;
     }
 
-    public function getEnd(): ?\DateTimeInterface
+    public function getStartHour(): ?\DateTimeInterface
     {
-        return $this->end;
+        return $this->startHour;
     }
 
-    public function setEnd(\DateTimeInterface $end): self
+    public function setStartHour(\DateTimeInterface $startHour): self
     {
-        $this->end = $end;
+        $this->startHour = $startHour;
+
+        return $this;
+    }
+
+    public function getEndHour(): ?\DateTimeInterface
+    {
+        return $this->endHour;
+    }
+
+    public function setEndHour(\DateTimeInterface $endHour): self
+    {
+        $this->endHour = $endHour;
 
         return $this;
     }

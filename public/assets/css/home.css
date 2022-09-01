@@ -64,6 +64,15 @@
     border-radius: 2px;
 }
 
+.fermeture{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.fermeture-smiley{
+    font-size: 24px;
+}
+
 .room-link{
     text-decoration: none;
     display: block;
