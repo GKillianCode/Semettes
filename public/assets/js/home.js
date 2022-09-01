@@ -52,7 +52,7 @@ function drawCalendar(events){
                 if (info.event.extendedProps.isClosed === false){
                     if (info.event.extendedProps.isClickable === true){
                         localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
-                        let container = document.querySelector("#container");
+                        let container = document.querySelector("#roomcontainer");
                         let template = document.querySelector("#card-template");
                         document.querySelectorAll("#container li").forEach(li=>{
                             li.remove();

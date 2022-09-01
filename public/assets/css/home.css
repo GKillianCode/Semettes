@@ -39,8 +39,8 @@ nav{
     align-items: center;
 }
 .pane-info-img{
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
 }
