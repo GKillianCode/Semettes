@@ -11,14 +11,9 @@ let btnPostBookings = document.querySelector('#btn-post-bookings')
 btnPostBookings.addEventListener('click',() => {
     let bookings = JSON.parse(localStorage.getItem('basket'))
     if (bookings){
-        apiPostBookings(bookings,()=>{
-            console.log('yes')
-        });
+        apiPostBookings(bookings,()=>{});
     }
 })
-
-
-
 
 let priceTotal = document.querySelector("#price-total");
 function update_basket(){
@@ -30,6 +25,7 @@ function update_basket(){
     });
     basket.forEach(e => {
         let start = new Date(e.slot.start);
+        let end = new Date(e.slot.end);
         let room = rooms_bdd.filter(room => room.id == e.room);
         console.log(e.slot.start)
         let clone = template.content.cloneNode(true)
@@ -42,13 +38,13 @@ function update_basket(){
         let date = clone.querySelector(".template-date-recap");
             date.textContent = start.toLocaleDateString()
         let hour = clone.querySelector(".template-hour-recap");
-            hour.textContent = start.getHours() + ':' + start.getMinutes()
+            hour.textContent = start.getHours() + ':' + start.getMinutes() + ' à ' + end.getHours() + ':' + end.getMinutes();
         let price = clone.querySelector(".template-price-recap");
             price.textContent = room[0].rate 
         container.appendChild(clone);
     })
     let pricesArray = document.querySelectorAll(".template-price-recap")
-    priceTotal.textContent = Array.from(pricesArray)
+    priceTotal.textContent = "Total : " + Array.from(pricesArray)
         .map(price => parseFloat(price.textContent))
         .reduce((acc,price)=> acc + price)
 }
