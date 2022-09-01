@@ -13,6 +13,13 @@ nav{
     border-right: 2px solid #000;
     transition: .2s;
 }
+
+.display-date{
+    display:block;
+    font-weight: bold;
+    font-size:22px;
+    padding-bottom: 20px;
+}
 .pane-info-open{
     left: 0;
     display: flex;
@@ -174,3 +181,4 @@ nav{
 .template-room-name{
     font-weight: 700;
 }
+

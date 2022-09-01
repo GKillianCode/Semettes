@@ -48,7 +48,10 @@ function drawCalendar(events){
                 hour12: false
             },
             eventClick: function(info) {
-                console.log('eventclick : ' + info)
+
+                const slot = document.querySelector('.display-date')
+                .textContent = (new Date(Date.parse(info.event.startStr.substr(0, 10))).toLocaleDateString());
+
                 if (info.event.extendedProps.isClosed === false){
                     if (info.event.extendedProps.isClickable === true){
                         localStorage.setItem('purchasingInfo',JSON.stringify(info.event))
@@ -144,6 +147,3 @@ function drawCalendar(events){
 };
 
 apiGetAllSlots(drawCalendar);
-
-
-
