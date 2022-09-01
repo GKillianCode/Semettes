@@ -66,11 +66,20 @@
 
 .room-link{
     text-decoration: none;
-    display: block;
+    display: inline;
     text-align: center;
     border-radius: 2px;
-    padding: 5px;
+    /* padding: 5px; */
     color: #111;
+}
+
+.fermeture{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.fermeture-smiley{
+    font-size: 24px;
 }
 
 .calendar-container{
