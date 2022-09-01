@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashboardAdminController extends AbstractController
 {
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/dashboard/admin', name: 'app_dashboard_admin')]
+    #[Route('/admindashboard', name: 'app_dashboard_admin')]
     public function index(): Response
     {
         return $this->render('dashboard_admin/index.html.twig', [
