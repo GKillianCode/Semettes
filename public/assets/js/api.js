@@ -30,7 +30,8 @@ const apiGetAllRooms = (onSuccess) => {
             let response = request;
             if(request.status === 200){
                 let res = JSON.parse(request.responseText);
-                setTimeout(onSuccess(res), 5000);
+    
+               setTimeout(onSuccess(res), 5000);
             } else if(request.status === 400){
                 console.error("Une erreur s'est produite : ", response.status);
             } else {
