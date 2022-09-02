@@ -66,13 +66,17 @@ function drawCalendar(events){
                                 let element = clone.querySelector(".pane-info-room");
                                 element.id = "room-"+e.id;
                                 let image = clone.querySelector(".template-image");
-                                image.src =  '/assets/imgs/' + e.room_image_name
+                                image.src =  '/assets/imgs/' + e.room_image_name;
                                 let roomName = clone.querySelector(".template-room-name");
-                                roomName.textContent =e.room_name
+                                roomName.textContent = e.room_name;
                                 let description = clone.querySelector(".template-description");
-                                description.textContent= e.room_description
+                                description.textContent = e.room_description;
+                                let maxperson = clone.querySelector(".room-max-person");
+                                maxperson.textContent = e.max_person + ' personnes maximum';
+                                let rate = clone.querySelector(".room-rate");
+                                rate.textContent= 'Tarif : ' + e.rate + ' €';
                                 let btnValidOneRoom = clone.querySelector(".template-btnValidOneRoom");
-                                    btnValidOneRoom.id = e.id
+                                    btnValidOneRoom.id = e.id;
                                 container.appendChild(clone);
                             }
                         })

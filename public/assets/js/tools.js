@@ -3,7 +3,6 @@ if(!localStorage.getItem('basket')){
 
 }
 localStorage.setItem('basket','[]');
-//let basket = [];
 let pricesArray = document.querySelectorAll(".template-price-recap")
 
 /* GESTION DE L'ENVOIE DE LA COMMANDE */
