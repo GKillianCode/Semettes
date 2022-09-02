@@ -3,11 +3,12 @@ const paneInfo = document.querySelector('.pane-info');
 const paneRecap = document.querySelector('.pane-recap');
 const paneInfoCloseButton = document.querySelector('.pane-info-close');
 const paneRecapOpenButton = document.querySelector('.pane-recap-openButton');
-const roomListTemplate = document.querySelector('#room-card-template')
 
-let templateRoomCard = document.querySelector("#room-card-template");
+const roomList = document.querySelector('.rooms-list');
 
-let rooms_bdd =[];
+let templateRoomCard = document.querySelector("#room-list-template");
+
+let rooms_bdd = [];
 
 // paneInfoCloseButton.addEventListener('click', () => {
 //     paneInfo.classList.remove('pane-info-open');
@@ -15,15 +16,17 @@ let rooms_bdd =[];
 
 apiGetAllRooms((response) => {
     response.forEach(room => {
-        let clonedTemplate = templateRoomCard.content.cloneNode(true)
-        let image = clonedTemplate.querySelector(".pane-info-img");
-            image.src =  '/assets/imgs/' + room.room_image_name
-        let roomName= clonedTemplate.querySelector('#room-name')
-            roomName.textContent=room.room_name
-            roomListTemplate.appendChild(clonedTemplate)
+        let clonedTemplate = templateRoomCard.content.cloneNode(true);
+        console.log(clonedTemplate);
+        let image = clonedTemplate.querySelector(".room-list-img");
+            image.src = '/assets/imgs/' + room.room_image_name
+        let roomName = clonedTemplate.querySelector('.room-list-name');
+            roomName.textContent = room.room_name
+        
+        roomList.appendChild(clonedTemplate)
+    });
+});
 
-})
-})
 function drawCalendar(events){
         apiGetAllRooms((rooms)=>{
             rooms_bdd = rooms;

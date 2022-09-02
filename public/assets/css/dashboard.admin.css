@@ -1,45 +1,5 @@
 
-.pane-info{
-    position: fixed;
-    left: -320px;
-    top: 0;
-    z-index: 500;
-    width: 320px;
-    height: 100vh;
-    border-right: 2px solid #000;
-    transition: .2s;
-}
-.pane-info-open{
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.pane-info ul{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    list-style: none;
-}
-.pane-info .button-close{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.pane-info-img{
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    object-position: center;
-}
+
 
 .fc-col-header-cell{
     background: #b25f8f;
@@ -89,10 +49,8 @@
     margin-top: 10px;
 }
 
-
-
-.pane-recap{
-    width: 350px;
+.pane-room-list{
+    width: 330px;
     position: fixed;
     z-index: 50;
     right: -450px;
@@ -100,52 +58,27 @@
     border-left: 2px solid #444;
     transition: .2s;
 }
-.pane-recap-open{
+.pane-room-list-open{
     right: 0;
 }
 
-.pane-recap-openButton{
+.pane-room-list-openButton{
     position: absolute;
     top: 60px;
     left: -44px;
     border-radius: 2px 0 0 2px;
 }
-/* .recap-list{
-    max-height: 76vh;
+.rooms-list{
+    max-height: 85vh;
     display: grid;
     grid-template-columns: 1fr;
     flex-direction: column;
     justify-content: center;
-    padding: 10px;
+    padding: 0 20px;
     overflow-y: scroll;
-} */
-.recap-item{
-    display: grid;
-    grid-template-columns: 100px 1fr 80px;
-    justify-content: start;
     list-style-type: none;
-    min-height: 100px;
-}
-.item-name{
-    font-size: 20px;
-    font-weight: 600;
-}
-.item-info-price{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    font-weight: 600;
-    border-left: 1px solid #222;
-    padding: 10px;
 }
 
-.info-date, .info-hour{
-    font-weight: 600;
-}
-
-.orderButton{
-    width: calc(100% - 20px);
-    margin-left: 10px;
-    margin-right: 10px;
+.rooms-list img{
+    border-radius: 5px 5px 0 0;
 }
