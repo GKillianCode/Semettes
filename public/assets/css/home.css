@@ -133,7 +133,7 @@ nav{
 }
 
 .recap-list{
-    max-height: 76vh;
+    max-height: 90vh;
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;

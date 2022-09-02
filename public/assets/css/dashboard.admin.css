@@ -1,3 +1,4 @@
+
 .pane-info{
     position: fixed;
     left: -320px;
@@ -88,8 +89,10 @@
     margin-top: 10px;
 }
 
+
+
 .pane-recap{
-    width: 450px;
+    width: 350px;
     position: fixed;
     z-index: 50;
     right: -450px;

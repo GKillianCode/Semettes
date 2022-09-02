@@ -1,23 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
-{% endblock %}
+{% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-	<link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}">
 
-	<div class="pane-info pt-5 pb-2 bg-sLightYellow">
 
-	</div>
+<div class="pane-info pt-5 pb-2 bg-sLightYellow">
+    <button class="pane-info-close btn btn-sPurple button-close p-0 z-50 rounded-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+    </button>
 
-	<div class="calendar-container">
-		<div id="calendar"></div>
-	</div>
+    <span class="display-date"></span>
 
-	<div class="pane-list-salles bg-sPurple" style="height: 100vh;">
-		
-	</div>
+    <ul id="roomcontainer" class="m-0 p-0 px-4">
+        <template id="card-template">
+            <li class="pane-info-room d-flex flex-column m-0">
+                <img id=""class="pane-info-img rounded-1 template-image" src="" alt="" class="rounded-1">
+                <button class="btn my-1 w-100 d-flex justify-content-between align-center">
+                    <span id="" class="text-uppercase template-room-name">Room 1</span>
+                    <svg class="my-auto bg-sYellow rounded-1" xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="#FFF" d="M17 15V8h-2v7H8v2h7v7h2v-7h7v-2z"/></svg>
+                </button>
+                <div id="" class="room-description template-description"></div>
+                <button id ="" type"button" class="template-btnValidOneRoom btn btn-sPurple text-white">Ajouter au panier</button>
+            </li>
+        </template>
+    </ul>
+    
+</div>
 
-	<script src="{{ asset('assets/js/fullCalendar.js') }}"></script>
-	{# <script src="{{ asset('assets/js/dashboard.admin.js') }}"></script> #}
+<div class="calendar-container">
+    <div id="calendar">
+    </div>
+</div>
+
+<div class="pane-recap pane-recap-open bg-sPurple" style="height: 100vh;">
+    <button class="pane-recap-openButton btn btn-sYellow p-1 shadow-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><path stroke-linejoin="round" d="M2.31 11.242A1 1 0 0 1 3.28 10h17.44a1 1 0 0 1 .97 1.242l-1.811 7.243A2 2 0 0 1 17.939 20H6.061a2 2 0 0 1-1.94-1.515L2.31 11.243Z"/><path stroke-linecap="round" d="M9 14v2m6-2v2m-9-6l4-6m8 6l-4-6"/></g></svg>
+    </button>
+
+    <h2 class="text-center my-4">Liste des salles</h2>
+
+    <ul id="container-recap" class="recap-list mt-5">
+		  {# <template id="room-list-recap"> #}
+            <li class="bg-sPink rounded-1 w-100 mb-5">
+                <img src="{{ asset('assets/imgs/room1x800.jpg') }}" class="recap-img-room m-0 p-0 w-100" alt="">
+                <div class="item-infos px-3 d-flex flex-column justify-content-center">
+                    <p class="item-name py-2 text-center my-0 template-room-recap0">Room A</p>
+                </div>
+            </li>
+        {# </template> #}
+		{# <template id="room-list-recap"> #}
+            <li class="bg-sPink rounded-1 w-100 mb-5">
+                <img src="{{ asset('assets/imgs/room1x800.jpg') }}" class="recap-img-room m-0 p-0 w-100" alt="">
+                <div class="item-infos px-3 d-flex flex-column justify-content-center">
+                    <p class="item-name py-2 text-center my-0 template-room-recap0">Room A</p>
+                </div>
+            </li>
+        {# </template> #}
+		{# <template id="room-list-recap"> #}
+            <li class="bg-sPink rounded-1 w-100 mb-5">
+                <img src="{{ asset('assets/imgs/room1x800.jpg') }}" class="recap-img-room m-0 p-0 w-100" alt="">
+                <div class="item-infos px-3 d-flex flex-column justify-content-center">
+                    <p class="item-name py-2 text-center my-0 template-room-recap0">Room A</p>
+                </div>
+            </li>
+        {# </template> #}
+    </ul>
+    
+  
+</div>
+<link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}">
+<script src="{{ asset('assets/js/fullCalendar.js') }}"></script>
+<script src="{{ asset('assets/js/dashboard.admin.js') }}"></script>
+<script src="{{ asset('assets/js/tools.js') }}"></script>
 {% endblock %}
