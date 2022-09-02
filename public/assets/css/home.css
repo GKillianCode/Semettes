@@ -92,6 +92,7 @@ nav{
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 5px;
 }
 .fermeture-smiley{
     font-size: 24px;
