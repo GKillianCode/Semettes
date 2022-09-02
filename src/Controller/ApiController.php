@@ -188,7 +188,7 @@ class ApiController extends AbstractController
                         'start' => $startSlot->format('Y-m-d H:i:s'),
                         'end' => $finishSlot->format('Y-m-d H:i:s'),
                         'extendedProps' => [
-                            'isClickable' => $isBookingRoom == 0 ? true : false,
+                            'isClickable' => count($isBookingRoom) == 0 ? true : false,
                             'isClosed' => false,
                         ],
                     ];

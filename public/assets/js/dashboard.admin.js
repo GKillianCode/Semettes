@@ -60,8 +60,9 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
-                
-                alert('ok')
+                if (info.event._def.extendedProps.isClickable == true) {
+                    alert("ok");
+                }
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
@@ -69,8 +70,21 @@ function drawCalendar(events) {
                 if (info.event._def.extendedProps.isClosed === false) {
                     if (info.event._def.extendedProps.isClickable === true) {
                         info.backgroundColor = "#b25f8f";
+
+                        let isClickable = document.createElement("p");
+                        isClickable.className = "fermeture";
+                        isClickable.innerHTML =
+                            'Créneau à réserver <span class="fermeture-smiley">📖</span>';
+                        arrayOfDomNodes.push(isClickable);
+
                     } else {
-                        info.backgroundColor = "#9c425e";
+                        info.backgroundColor = "#efc698";
+
+                        let isClickable = document.createElement("p");
+                        isClickable.className = "fermeture booking";
+                        isClickable.innerHTML =
+                            'Créneau réservé <span class="fermeture-smiley">📕</span>';
+                        arrayOfDomNodes.push(isClickable);
                     }
                 } else {
                     info.backgroundColor = "#272e3f";
@@ -89,4 +103,4 @@ function drawCalendar(events) {
     });
 }
 
-apiGetAllSlots(drawCalendar);
+apiGetAllSlotsByRoom(1, drawCalendar);
