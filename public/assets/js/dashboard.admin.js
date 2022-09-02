@@ -2,6 +2,7 @@ const paneRoom = document.querySelector(".pane-room-list");
 const paneRoomCloseButton = document.querySelector(
     ".pane-room-list-openButton"
 );
+const leftPaneRoom = document.querySelector(".pane-info");
 
 const roomList = document.querySelector(".rooms-list");
 
@@ -12,6 +13,18 @@ let rooms_bdd = [];
 paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
+
+
+function displayClientsList(){
+    let clientDetail = document.querySelectorAll('.client-info')
+    console.log(clientDetail)
+    clientDetail.forEach(elem=>elem.setAttribute('readonly', true));
+    }
+
+displayClientsList()
+
+const editClientInfo=document.querySelector('#edit-client-info')
+
 
 apiGetAllRooms((response) => {
     response.forEach((room) => {
@@ -60,8 +73,7 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
-                
-                
+                leftPaneRoom.classList.add("pane-info-open");
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
@@ -90,3 +102,6 @@ function drawCalendar(events) {
 }
 
 apiGetAllSlots(drawCalendar);
+
+
+
