@@ -1,5 +1,7 @@
 
-
+nav{
+    height:80px;
+}
 
 .fc-col-header-cell{
     background: #b25f8f;
@@ -49,11 +51,22 @@
     margin-top: 10px;
 }
 
+.fermeture{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px;
+}
+
+.fermeture-smiley{
+    font-size: 24px;
+}
+
 .pane-room-list{
     width: 330px;
     position: fixed;
     z-index: 50;
-    right: -450px;
+    right: -330px;
     top: 0;
     border-left: 2px solid #444;
     transition: .2s;
@@ -81,4 +94,8 @@
 
 .rooms-list img{
     border-radius: 5px 5px 0 0;
+}
+
+.rooms-list a{
+    text-decoration: none;
 }
