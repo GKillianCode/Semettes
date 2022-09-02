@@ -7,7 +7,6 @@ let pricesArray = document.querySelectorAll(".template-price-recap");
 
 let priceTotal = document.querySelector("#price-total");
 function update_basket(){
-    let basket = JSON.parse(localStorage.getItem('basket'));
     let container = document.querySelector("#container-recap");
     let template = document.querySelector("#template-card-recap");
     document.querySelectorAll("#container-recap li").forEach(li=>{
@@ -39,4 +38,3 @@ function update_basket(){
         .reduce((acc,price)=> acc + price)
 }
 
-    

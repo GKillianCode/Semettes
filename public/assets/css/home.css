@@ -132,7 +132,7 @@ nav{
     border-radius: 2px 0 0 2px;
 }
 
-.recap-list{
+/* .recap-list{
     max-height: 90vh;
     display: grid;
     grid-template-columns: 1fr;
@@ -141,7 +141,7 @@ nav{
     justify-content: center;
     padding: 10px;
     overflow-y: scroll;
-}
+} */
 .recap-item{
     display: grid;
     grid-template-columns: 120px 1fr 80px;
