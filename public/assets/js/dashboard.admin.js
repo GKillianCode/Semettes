@@ -15,15 +15,31 @@ paneRoomCloseButton.addEventListener("click", () => {
 });
 
 
-function displayClientsList(){
+function displayClientsList(isEditable) {
     let clientDetail = document.querySelectorAll('.client-info')
-    console.log(clientDetail)
-    clientDetail.forEach(elem=>elem.setAttribute('readonly', true));
+    if (isEditable == true) {
+        clientDetail.forEach((elem) => {
+            elem.removeAttribute('readonly')
+            elem.classList.remove("client-info")
+            elem.classList.add("edit-client-info")
+        }
+        );
     }
+    else {
+        clientDetail.forEach((elem) => {
+            elem.addAttribute('readonly')
+            elem.classList.remove("edit-client-info")
+        }
+        );
 
-displayClientsList()
+    }
+}
+
+
+displayClientsList(false)
 
 const editClientInfo=document.querySelector('#edit-client-info')
+editClientInfo.addEventListener('click', displayClientsList(true))
 
 
 apiGetAllRooms((response) => {
