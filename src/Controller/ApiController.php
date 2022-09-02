@@ -22,7 +22,6 @@ class ApiController extends AbstractController
         ExceptionalClosedSlotRepository $exceptionalClosedSlotRepository,
 
     ): Response {
-        // $closedSlots = $exceptionalClosedSlotRepository->findAll();
 
         $begin =  new \DateTime(); // now();
         $end =  new \DateTime();
