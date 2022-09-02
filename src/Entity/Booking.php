@@ -28,11 +28,13 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Groups(['booking'])]
     private $start_time;
 
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Groups(['booking'])]
     private $end_time;
 
     /**

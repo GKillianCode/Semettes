@@ -82,7 +82,7 @@ class BookingRepository extends ServiceEntityRepository
         return (array)$resultSet->fetchAllAssociative();
     }
 
-    public function findByDate(\DateTime $start, \DateTime $end): array
+    public function findByDateAndRoom(\DateTime $start, \DateTime $end, $id): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -90,7 +90,8 @@ class BookingRepository extends ServiceEntityRepository
             SELECT * FROM booking b
             WHERE 
             CAST(b.start_time as datetime) >= CAST(:start as datetime) AND
-            CAST(b.end_time as datetime) <= CAST(:end as datetime)
+            CAST(b.end_time as datetime) <= CAST(:end as datetime) AND
+            b.meeting_room_id = :id
             ";
             
         $stmt = $conn->prepare($sql);
@@ -98,26 +99,11 @@ class BookingRepository extends ServiceEntityRepository
             [
                 'start' => $start->format('Y-m-d H:i:s'),
                 'end' => $end->format('Y-m-d H:i:s'),
+                'id' => $id,
             ]
         );
-
         return (array)$resultSet->fetchAllAssociative();
     }
-
-//    /**
-//     * @return Booking[] Returns an array of Booking objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
 //    public function findOneBySomeField($value): ?Booking
 //    {

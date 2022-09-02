@@ -61,7 +61,7 @@ function drawCalendar(events) {
             },
             eventClick: function (info) {
                 
-                
+                alert('ok')
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
