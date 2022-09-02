@@ -54,7 +54,7 @@ class DashboardAdminController extends AbstractController
         return $apiResponse;
     }
 
-    #[IsGranted('ROLE_ADMIN')]
+    // #[IsGranted('ROLE_ADMIN')]
     #[Route('/admindashboard/{id}/updatebooking/{bookingid}', name: 'app_dashboard_update')]
     public function bookingUpdate(
         int $id,
@@ -76,6 +76,32 @@ class DashboardAdminController extends AbstractController
 
         $em->persist($booking);
         $em->flush($booking);
+
+        return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
+    }
+
+    // #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admindashboard/{id}/addbooking', name: 'app_dashboard_booking_add')]
+    public function bookingAdd(
+        int $id,
+        int $bookingid,
+        BookingRepository $bookingRepository,
+        EntityManager $em
+    ): Response
+    {
+        // $firstname = htmlentities($_POST['firstname']);
+        // $lastname = htmlentities($_POST['lastname']);
+        // $phone = htmlentities($_POST['phone']);
+        // $email = htmlentities($_POST['email']);
+
+        // $booking = $bookingRepository->findOneById($bookingid);
+        // $booking->setFirstname = $firstname;
+        // $booking->setLastname = $lastname;
+        // $booking->setPhone = $phone;
+        // $booking->setEmail = $email;
+
+        // $em->persist($booking);
+        // $em->flush($booking);
 
         return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
     }
