@@ -3,17 +3,7 @@ if(!localStorage.getItem('basket')){
 
 }
 localStorage.setItem('basket','[]');
-//let basket = [];
-let pricesArray = document.querySelectorAll(".template-price-recap")
-
-/* GESTION DE L'ENVOIE DE LA COMMANDE */
-let btnPostBookings = document.querySelector('#btn-post-bookings')
-btnPostBookings.addEventListener('click',() => {
-    let bookings = JSON.parse(localStorage.getItem('basket'))
-    if (bookings){
-        apiPostBookings(bookings,()=>{});
-    }
-})
+let pricesArray = document.querySelectorAll(".template-price-recap");
 
 let priceTotal = document.querySelector("#price-total");
 function update_basket(){
