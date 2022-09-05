@@ -60,14 +60,19 @@ function drawCalendar(events) {
         rooms_bdd = rooms;
         let calendarEl = document.getElementById("calendar");
         let calendar = new FullCalendar.Calendar(calendarEl, {
-            headerToolbar: { center: "timeGridWeek,dayGrid" },
+            headerToolbar: { center: "timeGridWeek" },
             initialView: "timeGridWeek",
             header: {
                 left: "prev,next,today",
                 center: "title",
             },
             allDaySlot: false,
-            timeZone: "UTC",
+            timeZone: "local",
+            locale: "fr",
+            slotMinTime: "08:00:00",
+            slotMaxTime: "18:00:00",
+            firstDay: 1,
+            height: 600,
 
             // events: [
             //     {
