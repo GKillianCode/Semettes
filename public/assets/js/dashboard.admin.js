@@ -137,7 +137,7 @@ function drawCalendar(events) {
     });
 }
 
-apiGetAllSlotsByRoom(3, drawCalendar);
+apiGetAllSlotsByRoom(1, drawCalendar);
 
 
 
