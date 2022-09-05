@@ -38,38 +38,27 @@
 
 		<span class="display-date">22/01/2202</span>
 
-			<form method="POST">
-				<hr></hr>
-				<div class="d-flex flex-column client-form-container">
-					<label class="label-client-form-container" for="booking-id">Num° de réservation</label>
-					<input class="client-info" type="text" name="booking-id" value="id de réservation" readonly>
-					<label class="label-client-form-container" for="name">Nom</label>
-					<input class="client-info" type="text" name="name" value="nom" readonly>
-					<label class="label-client-form-container" for="firstname">Prenom</label>
-					<input class="client-info" type="text" name="firstname" value="prenom" readonly>
-					<label class="label-client-form-container" for="phone">Phone</label>
-					<input class="client-info" type="text" name="phone" value="n° de téléphone" readonly>
-					<label class="label-client-form-container" for="email">Email</label>
-					<input class="client-info" type="text" name="email" value="adresse email" readonly>
-					
-				</div>
-				<hr></hr>
-				<div class="d-flex justify-content-start gap-2">
-					<button type="submit" id="edit-client-info" class="px-3 edit-client-info">Edit</button>
-					<button type="button" id="delete-client-info" class="px-3 delete-client-info">Delete</button>
-				</div>
-			</form>
+		<form method="POST">
+			<hr></hr>
+		<div class="d-flex flex-column client-form-container">
+			<label class="label-client-form-container" for="booking-id">Num° de réservation</label>
+			<input class="client-info" type="text" name="booking-id" value="id de réservation" readonly>
+			<label class="label-client-form-container" for="name">Nom</label>
+			<input class="client-info" type="text" name="name" value="nom" readonly>
+			<label class="label-client-form-container" for="firstname">Prenom</label>
+			<input class="client-info" type="text" name="firstname" value="prenom" readonly>
+			<label class="label-client-form-container" for="phone">Phone</label>
+			<input class="client-info" type="text" name="phone" value="n° de téléphone" readonly>
+			<label class="label-client-form-container" for="email">Email</label>
+			<input class="client-info" type="text" name="email" value="adresse email" readonly>
 
-				
-
-			{#DATE // booking_id, lastname, firstname, phone, email#}
-		
-
+		</div>
+		<hr></hr>
+	<div class="d-flex justify-content-start gap-2">
+		<button type="submit" id="edit-client-info" class="px-3 edit-client-info">Edit</button>
+		<button type="button" id="delete-client-info" class="px-3 delete-client-info">Delete</button>
 	</div>
+</form>
 
-	<link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}">
-	<script src="{{ asset('assets/js/fullCalendar.js') }}"></script>
-	<script src="{{ asset('assets/js/dashboard.admin.js') }}"></script>
-	<script src="{{ asset('assets/js/tools.admindashboard.js') }}"></script>
 
-{% endblock %}
+{#DATE // booking_id, lastname, firstname, phone, email#}</div><link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}"><script src="{{ asset('assets/js/api.admin.js') }}"></script><script src="{{ asset('assets/js/fullCalendar.js') }}"></script><script src="{{ asset('assets/js/dashboard.admin.js') }}"></script><script src="{{ asset('assets/js/tools.admindashboard.js') }}"></script>{% endblock %}

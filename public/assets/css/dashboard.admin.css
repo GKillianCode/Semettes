@@ -163,12 +163,13 @@ nav {
     margin-bottom: 4px;
 }
 
-.client-info-edited{
+.client-info-edited {
     border-bottom: 1px solid black;
     background-color: white;
     margin-bottom: 4px;
 }
-.save-client-info{
+
+.save-client-info {
     border: 1px solid #d4a5bf;
     border-radius: 5px;
     background-color: #d4a5bf;
@@ -197,3 +198,9 @@ nav {
     color: white;
 }
 
+.display-date {
+    display: block;
+    font-weight: bold;
+    font-size: 22px;
+    padding-bottom: 20px;
+}

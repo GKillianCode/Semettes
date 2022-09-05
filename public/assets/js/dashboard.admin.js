@@ -5,8 +5,9 @@ const paneRoomCloseButton = document.querySelector(
     ".pane-room-list-openButton"
 );
 const leftPaneRoom = document.querySelector(".pane-info");
-
+let clientDetail = document.querySelectorAll('.client-info')
 const roomList = document.querySelector(".rooms-list");
+const date = document.querySelector('.display-date')
 
 let templateRoomCard = document.querySelector("#room-list-template");
 
@@ -16,27 +17,25 @@ paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
 
-paneInfoClose.addEventListener('click',()=>{
+paneInfoClose.addEventListener('click', () => {
     paneInfo.classList.remove("pane-info-open")
 })
 
 const editClientInfo = document.querySelector('#edit-client-info')
 editClientInfo.addEventListener('click', (ev) => {
     ev.preventDefault()
-    let clientDetail = document.querySelectorAll('.client-info')
-    editClientInfo.textContent="Save";
-    editClientInfo.style.backgroundColor="";
-    clientDetail.forEach((elem) => {
 
-        if(!elem.toggleAttribute('readonly')){
+    editClientInfo.textContent = "Save";
+    editClientInfo.style.backgroundColor = "";
+    clientDetail.forEach((elem) => {
+        if (!elem.toggleAttribute('readonly')) {
             //ev.preventDefault()
-            elem.classList.remove("client-info")  
+            elem.classList.remove("client-info")
         }
-        
+
     })
 }
 )
-
 
 apiGetAllRooms((response) => {
     response.forEach((room) => {
@@ -47,7 +46,6 @@ apiGetAllRooms((response) => {
         roomName.textContent = room.room_name;
         let roomLink = clonedTemplate.querySelector("a");
         roomLink.href = "/admindashboard/" + room.id;
-
         roomList.appendChild(clonedTemplate);
     });
 });
@@ -90,13 +88,27 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
-                if (info.event._def.extendedProps.isClickable == true) {
-                    
+                let bookingId = info.event._def.extendedProps.bookingId
+                if (info.event._def.extendedProps.isClickable == false) {
+
+                    apiGetBookingByBookingId(bookingId, (data) => {
+                        date.textContent = new Date(data.start_time).toLocaleDateString()
+
+                        for (let i = 0; i < clientDetail.length; i++) {
+                            clientDetail[0].value = data.booking_id
+                            clientDetail[1].value = data.lastname
+                            clientDetail[2].value = data.firstname
+                            clientDetail[3].value = data.phone
+                            clientDetail[4].value = data.email
+                        }
+
+                    })
+                    leftPaneRoom.classList.remove("pane-info-open");
+                    setTimeout(() => {
+                        leftPaneRoom.classList.add("pane-info-open");
+                    }, 500)
                 }
-                leftPaneRoom.classList.remove("pane-info-open");
-                setTimeout(()=> {
-                    leftPaneRoom.classList.add("pane-info-open");
-                },500)
+
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
