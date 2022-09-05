@@ -14,31 +14,23 @@ paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
 
-// function displayClientsList(isEditable) {
-//     console.log('Hello')
-//     let clientDetail = document.querySelectorAll('.client-info')
-//     if (isEditable === true) {
-//         clientDetail.forEach((elem) => {
-//             elem.removeAttribute('readonly')
-//             elem.classList.remove("client-info")
-//             editClientInfo.textContent="Save";
-//             editClientInfo.style.backgroundColor="";
-//         }
-//         );
-//     }
-//     else {
-//         clientDetail.forEach((elem) => {
-//             elem.setAttribute('readonly', true)
-//             elem.classList.remove("edit-client-info")
-//         });
-//     }
-// }
 
-// displayClientsList(false)
+const editClientInfo = document.querySelector('#edit-client-info')
+editClientInfo.addEventListener('click', (ev) => {
+    ev.preventDefault()
+    let clientDetail = document.querySelectorAll('.client-info')
+    editClientInfo.textContent="Save";
+    editClientInfo.style.backgroundColor="";
+    clientDetail.forEach((elem) => {
 
-// const editClientInfo = document.querySelector('#edit-client-info')
-// editClientInfo.addEventListener('click', ()=>displayClientsList(true)
-// )
+        if(!elem.toggleAttribute('readonly')){
+            //ev.preventDefault()
+            elem.classList.remove("client-info")  
+        }
+        
+    })
+}
+)
 
 
 apiGetAllRooms((response) => {
