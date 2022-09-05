@@ -1,4 +1,6 @@
 const paneRoom = document.querySelector(".pane-room-list");
+const paneInfo = document.querySelector(".pane-info");
+const paneInfoClose = document.querySelector(".pane-info-close");
 const paneRoomCloseButton = document.querySelector(
     ".pane-room-list-openButton"
 );
@@ -14,6 +16,9 @@ paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
 
+paneInfoClose.addEventListener('click',()=>{
+    paneInfo.classList.remove("pane-info-open")
+})
 
 const editClientInfo = document.querySelector('#edit-client-info')
 editClientInfo.addEventListener('click', (ev) => {
@@ -86,9 +91,12 @@ function drawCalendar(events) {
             },
             eventClick: function (info) {
                 if (info.event._def.extendedProps.isClickable == true) {
-                    alert("ok");
+                    
                 }
-                leftPaneRoom.classList.add("pane-info-open");
+                leftPaneRoom.classList.remove("pane-info-open");
+                setTimeout(()=> {
+                    leftPaneRoom.classList.add("pane-info-open");
+                },500)
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
