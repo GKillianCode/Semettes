@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
-    #[Route('/api/weekslots', name: 'show_weekslot')]
+    #[Route('/api/weekslots', methods: ['GET'])]
     public function show(
         WeekSlotRepository $weekslotRepository,
         MeetingRoomRepository $meetingRoomRepository,
