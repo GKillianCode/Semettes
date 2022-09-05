@@ -2,6 +2,7 @@ const paneRoom = document.querySelector(".pane-room-list");
 const paneRoomCloseButton = document.querySelector(
     ".pane-room-list-openButton"
 );
+const leftPaneRoom = document.querySelector(".pane-info");
 
 const roomList = document.querySelector(".rooms-list");
 
@@ -12,6 +13,63 @@ let rooms_bdd = [];
 paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
+
+
+<<<<<<< HEAD
+function displayClientsList(isEditable) {
+    console.log('Hello')
+    let clientDetail = document.querySelectorAll('.client-info')
+    if (isEditable === true) {
+        clientDetail.forEach((elem) => {
+            elem.removeAttribute('readonly')
+            elem.classList.remove("client-info")
+            editClientInfo.textContent="Save";
+            editClientInfo.style.backgroundColor="";
+        }
+        );
+    }
+    else {
+        clientDetail.forEach((elem) => {
+            // elem.setAttribute('readonly', true)
+            elem.classList.remove("edit-client-info")
+        }
+        );
+=======
+// function displayClientsList(isEditable) {
+//     let clientDetail = document.querySelectorAll('.client-info')
+//     if (isEditable == true) {
+//         clientDetail.forEach((elem) => {
+//             elem.removeAttribute('readonly')
+//             elem.classList.remove("client-info")
+//             elem.classList.add("edit-client-info")
+//         }
+//         );
+//     }
+//     else {
+//         clientDetail.forEach((elem) => {
+//             elem.addAttribute('readonly')
+//             elem.classList.remove("edit-client-info")
+//         }
+//         );
+>>>>>>> 69861b6f2f6e1b4c9a4599bc35e5a36f7610cb0c
+
+//     }
+// }
+
+<<<<<<< HEAD
+displayClientsList(false)
+
+const editClientInfo = document.querySelector('#edit-client-info')
+editClientInfo.addEventListener('click', ()=>displayClientsList(true)
+)
+=======
+
+// displayClientsList(false);
+
+// const editClientInfo=document.querySelector('#edit-client-info');
+// editClientInfo.addEventListener('click', displayClientsList(true));
+>>>>>>> 69861b6f2f6e1b4c9a4599bc35e5a36f7610cb0c
+
 
 apiGetAllRooms((response) => {
     response.forEach((room) => {
@@ -63,6 +121,7 @@ function drawCalendar(events) {
                 if (info.event._def.extendedProps.isClickable == true) {
                     alert("ok");
                 }
+                leftPaneRoom.classList.add("pane-info-open");
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
@@ -103,4 +162,7 @@ function drawCalendar(events) {
     });
 }
 
-apiGetAllSlotsByRoom(1, drawCalendar);
+apiGetAllSlotsByRoom(3, drawCalendar);
+
+
+

@@ -11,9 +11,7 @@
 
 	<div class="pane-room-list bg-sPurple" style="height: 100vh;">
 		<button class="pane-room-list-openButton btn btn-sYellow p-1 shadow-none">
-			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24">
-				<g fill="none" stroke="currentColor" stroke-width="2"><path stroke-linejoin="round" d="M2.31 11.242A1 1 0 0 1 3.28 10h17.44a1 1 0 0 1 .97 1.242l-1.811 7.243A2 2 0 0 1 17.939 20H6.061a2 2 0 0 1-1.94-1.515L2.31 11.243Z"/><path stroke-linecap="round" d="M9 14v2m6-2v2m-9-6l4-6m8 6l-4-6"/></g>
-			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 512 512"><path fill="currentColor" d="M440 424V88h-88V13.005L88 58.522V424H16v32h86.9L352 490.358V120h56v336h88v-32Zm-120 29.642l-200-27.586V85.478L320 51Z"/><path fill="currentColor" d="M256 232h32v64h-32z"/></svg>
 		</button>
 
 		<h2 class="text-center my-4">Liste des salles</h2>
@@ -30,9 +28,47 @@
 				</li>
 			</template>
 		</ul>
+	</div>
 
+
+	<div class="pane-info pane-info-open pt-5 pb-2 bg-sLightYellow">
+		<button class="pane-info-close btn btn-sPurple button-close p-0 z-50 rounded-1">
+			<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+		</button>
+
+		<span class="display-date">22/01/2202</span>
+
+			<form>
+<hr></hr>
+
+
+			<div class="d-flex flex-column client-form-container">
+				<label class="label-client-form-container" for="booking-id">Num° de réservation</label>
+				<input class="client-info" type="text" name="booking-id" value="id de réservation">
+				<label class="label-client-form-container" for="name">Nom</label>
+				<input class="client-info" type="text" name="name" value="nom">
+				<label class="label-client-form-container" for="firstname">Prenom</label>
+				<input class="client-info" type="text" name="firstname" value="prenom">
+				<label class="label-client-form-container" for="phone">Phone</label>
+				<input class="client-info" type="text" name="phone" value="n° de téléphone">
+				<label class="label-client-form-container" for="email">Email</label>
+				<input class="client-info" type="text" name="email" value="adresse email">
+				
+			</div>
+			<hr></hr>
+			<div class="d-flex justify-content-start gap-2">
+			<button type="button" id="edit-client-info" class="px-3 edit-client-info">Edit</button>
+			<button type="button" id="delete-client-info" class="px-3 delete-client-info">Delete</button>
+			</div>
+			</form>
+
+				
+
+			{#DATE // booking_id, lastname, firstname, phone, email#}
+		
 
 	</div>
+
 	<link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}">
 	<script src="{{ asset('assets/js/fullCalendar.js') }}"></script>
 	<script src="{{ asset('assets/js/dashboard.admin.js') }}"></script>
