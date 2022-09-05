@@ -15,31 +15,31 @@ paneRoomCloseButton.addEventListener("click", () => {
 });
 
 
-function displayClientsList(isEditable) {
-    let clientDetail = document.querySelectorAll('.client-info')
-    if (isEditable == true) {
-        clientDetail.forEach((elem) => {
-            elem.removeAttribute('readonly')
-            elem.classList.remove("client-info")
-            elem.classList.add("edit-client-info")
-        }
-        );
-    }
-    else {
-        clientDetail.forEach((elem) => {
-            elem.addAttribute('readonly')
-            elem.classList.remove("edit-client-info")
-        }
-        );
+// function displayClientsList(isEditable) {
+//     let clientDetail = document.querySelectorAll('.client-info')
+//     if (isEditable == true) {
+//         clientDetail.forEach((elem) => {
+//             elem.removeAttribute('readonly')
+//             elem.classList.remove("client-info")
+//             elem.classList.add("edit-client-info")
+//         }
+//         );
+//     }
+//     else {
+//         clientDetail.forEach((elem) => {
+//             elem.addAttribute('readonly')
+//             elem.classList.remove("edit-client-info")
+//         }
+//         );
 
-    }
-}
+//     }
+// }
 
 
-displayClientsList(false)
+// displayClientsList(false);
 
-const editClientInfo=document.querySelector('#edit-client-info')
-editClientInfo.addEventListener('click', displayClientsList(true))
+// const editClientInfo=document.querySelector('#edit-client-info');
+// editClientInfo.addEventListener('click', displayClientsList(true));
 
 
 apiGetAllRooms((response) => {
@@ -133,7 +133,7 @@ function drawCalendar(events) {
     });
 }
 
-apiGetAllSlotsByRoom(1, drawCalendar);
+apiGetAllSlotsByRoom(3, drawCalendar);
 
 
 
