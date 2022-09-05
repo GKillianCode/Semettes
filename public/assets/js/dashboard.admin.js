@@ -16,18 +16,20 @@ paneRoomCloseButton.addEventListener("click", () => {
 
 
 function displayClientsList(isEditable) {
+    console.log('Hello')
     let clientDetail = document.querySelectorAll('.client-info')
-    if (isEditable == true) {
+    if (isEditable === true) {
         clientDetail.forEach((elem) => {
             elem.removeAttribute('readonly')
             elem.classList.remove("client-info")
-            elem.classList.add("edit-client-info")
+            editClientInfo.textContent="Save";
+            editClientInfo.style.backgroundColor="";
         }
         );
     }
     else {
         clientDetail.forEach((elem) => {
-            elem.addAttribute('readonly')
+            // elem.setAttribute('readonly', true)
             elem.classList.remove("edit-client-info")
         }
         );
@@ -35,11 +37,11 @@ function displayClientsList(isEditable) {
     }
 }
 
-
 displayClientsList(false)
 
-const editClientInfo=document.querySelector('#edit-client-info')
-editClientInfo.addEventListener('click', displayClientsList(true))
+const editClientInfo = document.querySelector('#edit-client-info')
+editClientInfo.addEventListener('click', ()=>displayClientsList(true)
+)
 
 
 apiGetAllRooms((response) => {

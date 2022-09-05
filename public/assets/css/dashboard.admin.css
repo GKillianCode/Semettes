@@ -163,11 +163,16 @@ nav {
     margin-bottom: 4px;
 }
 
-.edit-client-info {
-    border: none;
-    border-bottom:1px solid black;
-    background-color:white;
+.client-info-edited{
+    border-bottom: 1px solid black;
+    background-color: white;
     margin-bottom: 4px;
+}
+.save-client-info{
+    border: 1px solid #d4a5bf;
+    border-radius: 5px;
+    background-color: #d4a5bf;
+    color: black;
 }
 
 .client-info:focus {
@@ -178,7 +183,7 @@ nav {
     font-weight: 700;
 }
 
-#edit-client-info {
+.edit-client-info {
     border: 1px solid #9c425e;
     border-radius: 5px;
     background-color: #9c425e;
