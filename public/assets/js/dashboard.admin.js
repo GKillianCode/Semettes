@@ -1,12 +1,12 @@
 const paneRoom = document.querySelector(".pane-room-list");
 const paneInfo = document.querySelector(".pane-info");
 const paneInfoClose = document.querySelector(".pane-info-close");
-const paneRoomCloseButton = document.querySelector(
-    ".pane-room-list-openButton"
-);
+const paneRoomCloseButton = document.querySelector(".pane-room-list-openButton");
 const leftPaneRoom = document.querySelector(".pane-info");
-
 const roomList = document.querySelector(".rooms-list");
+
+const bookingContainer = document.querySelector(".booking-container");
+const bookingForm = document.querySelector(".booking-form");
 
 let templateRoomCard = document.querySelector("#room-list-template");
 
@@ -91,7 +91,7 @@ function drawCalendar(events) {
             },
             eventClick: function (info) {
                 if (info.event._def.extendedProps.isClickable == true) {
-                    
+                    bookingContainer.classList.add("booking-container-open");
                 }
                 leftPaneRoom.classList.remove("pane-info-open");
                 setTimeout(()=> {
