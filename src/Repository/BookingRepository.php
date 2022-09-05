@@ -102,7 +102,7 @@ class BookingRepository extends ServiceEntityRepository
                 'id' => $id,
             ]
         );
-        return (array)$resultSet->fetchAllAssociative();
+        return (array)$resultSet->fetchOne();
     }
 
 //    public function findOneBySomeField($value): ?Booking

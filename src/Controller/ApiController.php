@@ -190,6 +190,7 @@ class ApiController extends AbstractController
                         'extendedProps' => [
                             'isClickable' => count($isBookingRoom) == 0 ? true : false,
                             'isClosed' => false,
+                            'bookingId' => $isBookingRoom[0] ? $isBookingRoom[0] : false
                         ],
                     ];
                 }
