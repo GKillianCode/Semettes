@@ -9,6 +9,7 @@ let clientDetail = document.querySelectorAll('.client-info')
 const roomList = document.querySelector(".rooms-list");
 const date = document.querySelector('.display-date')
 
+
 let templateRoomCard = document.querySelector("#room-list-template");
 
 let rooms_bdd = [];
@@ -20,22 +21,41 @@ paneRoomCloseButton.addEventListener("click", () => {
 paneInfoClose.addEventListener('click', () => {
     paneInfo.classList.remove("pane-info-open")
 })
+let clientData = []
 
 const editClientInfo = document.querySelector('#edit-client-info')
 editClientInfo.addEventListener('click', (ev) => {
     ev.preventDefault()
-
-    editClientInfo.textContent = "Save";
-    editClientInfo.style.backgroundColor = "";
     clientDetail.forEach((elem) => {
         if (!elem.toggleAttribute('readonly')) {
-            //ev.preventDefault()
             elem.classList.remove("client-info")
+            editClientInfo.textContent = "Save";
         }
-
+        else {
+            editClientInfo.textContent = "Edit";
+            elem.classList.add("client-info")
+            clientData.push(elem.value)
+        }
     })
+    if (clientData.length > 0) {
+        clientData = [{
+            'reservation': clientData[0],
+            'firstname': clientData[1],
+            'lastname': clientData[2],
+            'phone': clientData[3],
+            'email': clientData[4],
+            'bookingId': clientData[5],
+            'roomId': clientData[6],
+        }]
+        apiUpdateBooking(clientData, (data) => {
+            clientData = [];
+        })
+
+    }
+
 }
 )
+
 
 apiGetAllRooms((response) => {
     response.forEach((room) => {
@@ -88,20 +108,22 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
+
                 let bookingId = info.event._def.extendedProps.bookingId
                 if (info.event._def.extendedProps.isClickable == false) {
 
+
                     apiGetBookingByBookingId(bookingId, (data) => {
+                        console.log(data);
                         date.textContent = new Date(data.start_time).toLocaleDateString()
 
-                        for (let i = 0; i < clientDetail.length; i++) {
-                            clientDetail[0].value = data.booking_id
-                            clientDetail[1].value = data.lastname
-                            clientDetail[2].value = data.firstname
-                            clientDetail[3].value = data.phone
-                            clientDetail[4].value = data.email
-                        }
-
+                        clientDetail[0].value = data.booking_id
+                        clientDetail[1].value = data.lastname
+                        clientDetail[2].value = data.firstname
+                        clientDetail[3].value = data.phone
+                        clientDetail[4].value = data.email
+                        clientDetail[5].value = data.id
+                        clientDetail[6].value = data.meeting_room.id
                     })
                     leftPaneRoom.classList.remove("pane-info-open");
                     setTimeout(() => {

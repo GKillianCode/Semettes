@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Repository\BookingRepository;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 class DashboardAdminController extends AbstractController
 {
@@ -32,8 +34,7 @@ class DashboardAdminController extends AbstractController
         int $id,
         int $bookingid,
         BookingRepository $bookingRepository
-    ): Response
-    {
+    ): Response {
         $booking = $bookingRepository->findOneById($bookingid);
         $bookingRepository->remove($booking, true);
 
@@ -46,13 +47,14 @@ class DashboardAdminController extends AbstractController
         int $bookingid,
         BookingRepository $bookingRepository,
         SerializerInterface $serializer,
-    ): Response
-    {
+    ): Response {
         $booking = $bookingRepository->findOneById($bookingid);
-        $apiResponse = new Response($serializer->serialize($booking, 'json', ['groups'=>['booking']]));
+
+        $apiResponse = new Response($serializer->serialize($booking, 'json', ['groups' => ['booking']]));
 
         return $apiResponse;
     }
+
 
     // #[IsGranted('ROLE_ADMIN')]
     #[Route('/admindashboard/{id}/updatebooking/{bookingid}', name: 'app_dashboard_update')]
@@ -60,9 +62,34 @@ class DashboardAdminController extends AbstractController
         int $id,
         int $bookingid,
         BookingRepository $bookingRepository,
-        EntityManager $em
-    ): Response
-    {
+        EntityManagerInterface $em,
+        Request $request
+    ): Response {
+
+
+        $content = json_decode($request->getContent())[0];
+
+        $booking = $bookingRepository->findOneById($bookingid);
+        $booking->setBookingId($content->reservation);
+        $booking->setFirstname($content->firstname);
+        $booking->setLastname($content->lastname);
+        $booking->setPhone($content->phone);
+        $booking->setEmail($content->email);
+
+        $em->persist($booking);
+        $em->flush($booking);
+
+        return new JsonResponse($content->reservation);
+    }
+
+    // #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admindashboard/{id}/addbooking', name: 'app_dashboard_booking_add')]
+    public function bookingAdd(
+        int $id,
+        int $bookingid,
+        BookingRepository $bookingRepository,
+        EntityManagerInterface $em
+    ): Response {
         $firstname = htmlentities($_POST['firstname']);
         $lastname = htmlentities($_POST['lastname']);
         $phone = htmlentities($_POST['phone']);
@@ -76,32 +103,6 @@ class DashboardAdminController extends AbstractController
 
         $em->persist($booking);
         $em->flush($booking);
-
-        return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
-    }
-
-    // #[IsGranted('ROLE_ADMIN')]
-    #[Route('/admindashboard/{id}/addbooking', name: 'app_dashboard_booking_add')]
-    public function bookingAdd(
-        int $id,
-        int $bookingid,
-        BookingRepository $bookingRepository,
-        EntityManager $em
-    ): Response
-    {
-        // $firstname = htmlentities($_POST['firstname']);
-        // $lastname = htmlentities($_POST['lastname']);
-        // $phone = htmlentities($_POST['phone']);
-        // $email = htmlentities($_POST['email']);
-
-        // $booking = $bookingRepository->findOneById($bookingid);
-        // $booking->setFirstname = $firstname;
-        // $booking->setLastname = $lastname;
-        // $booking->setPhone = $phone;
-        // $booking->setEmail = $email;
-
-        // $em->persist($booking);
-        // $em->flush($booking);
 
         return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
     }

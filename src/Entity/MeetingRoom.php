@@ -18,7 +18,7 @@ class MeetingRoom
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    #[Groups(['meeting_rooms'])]
+    #[Groups(['meeting_rooms', 'booking'])]
     private $id;
 
     /**
@@ -156,4 +156,8 @@ class MeetingRoom
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->id;
+    }
 }
