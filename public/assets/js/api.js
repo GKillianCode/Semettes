@@ -61,3 +61,24 @@ const apiGetAllRooms = (onSuccess) => {
     })
     request.send();
 }
+
+const apiPostAdminBooking = (id, firstname, name, tel, email, slotData, onSuccess, onError) => {
+    const request = new XMLHttpRequest();
+    let url = 'https://localhost:8000/'
+    request.open("POST", url+"admindashboard/"+id+"/addbooking", true);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.addEventListener("readystatechange", function (){
+        if(request.readyState === XMLHttpRequest.DONE){
+            let response = request;
+            if(request.status === 200){
+                console.log(response.responseText)
+                onSuccess();
+            } else {
+                
+                onError(request.statusText);
+            }
+        }
+    });
+
+    request.send(`firstname=${encodeURIComponent(firstname)}&name=${encodeURIComponent(name)}&tel=${encodeURIComponent(tel)}&email=${encodeURIComponent(email)}&slot=${encodeURIComponent(slotData)}`);
+}

@@ -5,8 +5,10 @@ const paneRoomCloseButton = document.querySelector(".pane-room-list-openButton")
 const leftPaneRoom = document.querySelector(".pane-info");
 const roomList = document.querySelector(".rooms-list");
 
+const bookingCover = document.querySelector(".booking-cover");
 const bookingContainer = document.querySelector(".booking-container");
-const bookingForm = document.querySelector(".booking-form");
+const bookingForm = document.querySelector(".bookingform");
+const bookingFormBtnClose = document.querySelector(".booking-btn-close");
 
 let templateRoomCard = document.querySelector("#room-list-template");
 
@@ -33,9 +35,31 @@ editClientInfo.addEventListener('click', (ev) => {
             elem.classList.remove("client-info")  
         }
         
-    })
-}
-)
+    });
+});
+
+bookingFormBtnClose.addEventListener('click', () => {
+    bookingCover.classList.remove('booking-container-open');
+});
+
+bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const firstname = bookingForm['firstname'].value;
+    const name = bookingForm['name'].value;
+    const tel = bookingForm['tel'].value;
+    const email = bookingForm['email'].value;
+    const slotdata = bookingForm['slot'].value;
+
+    apiPostAdminBooking(1, firstname, name, tel, email, slotdata,
+        () => {
+            alert('Success');
+        },
+        (error) => {
+            console.log(error);
+        });
+
+    // location.reload()
+});
 
 
 apiGetAllRooms((response) => {
@@ -91,12 +115,17 @@ function drawCalendar(events) {
             },
             eventClick: function (info) {
                 if (info.event._def.extendedProps.isClickable == true) {
-                    bookingContainer.classList.add("booking-container-open");
+                    bookingCover.classList.add("booking-container-open");
+
+                    let input = document.querySelector('#slotdata');
+                    input.value = JSON.stringify(info.event);
+
+                } else {
+                    leftPaneRoom.classList.remove("pane-info-open");
+                    setTimeout(()=> {
+                        leftPaneRoom.classList.add("pane-info-open");
+                    },500)
                 }
-                leftPaneRoom.classList.remove("pane-info-open");
-                setTimeout(()=> {
-                    leftPaneRoom.classList.add("pane-info-open");
-                },500)
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];

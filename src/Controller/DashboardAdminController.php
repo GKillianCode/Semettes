@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Booking;
 use App\Repository\BookingRepository;
-use Doctrine\ORM\EntityManager;
+use App\Repository\MeetingRoomRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DashboardAdminController extends AbstractController
 {
@@ -60,7 +64,7 @@ class DashboardAdminController extends AbstractController
         int $id,
         int $bookingid,
         BookingRepository $bookingRepository,
-        EntityManager $em
+        EntityManagerInterface $em
     ): Response
     {
         $firstname = htmlentities($_POST['firstname']);
@@ -84,25 +88,35 @@ class DashboardAdminController extends AbstractController
     #[Route('/admindashboard/{id}/addbooking', name: 'app_dashboard_booking_add')]
     public function bookingAdd(
         int $id,
-        int $bookingid,
         BookingRepository $bookingRepository,
-        EntityManager $em
-    ): Response
+        MeetingRoomRepository $meetingRoomRepository,
+        EntityManagerInterface $em,
+        Request $request
+    ):Response
     {
-        // $firstname = htmlentities($_POST['firstname']);
-        // $lastname = htmlentities($_POST['lastname']);
-        // $phone = htmlentities($_POST['phone']);
-        // $email = htmlentities($_POST['email']);
+        $requestData = $request->request;
+        $firstname=$requestData->get('firstname');
+        $lastname=$requestData->get('name');
+        $phone=$requestData->get('tel');
+        $email=$requestData->get('email');
 
-        // $booking = $bookingRepository->findOneById($bookingid);
-        // $booking->setFirstname = $firstname;
-        // $booking->setLastname = $lastname;
-        // $booking->setPhone = $phone;
-        // $booking->setEmail = $email;
+        $bookingId=substr(md5(uniqid()), 0, 10);
 
-        // $em->persist($booking);
-        // $em->flush($booking);
+        $booking=new Booking();
+        $booking->setStartTime(new \DateTime( json_decode($requestData->get('slot'))->start ));
+        $booking->setEndTime(new \DateTime( json_decode($requestData->get('slot'))->end ));
+        $booking->setMeetingRoom($meetingRoomRepository->findOneById($id));
+        $booking->setBookingId($bookingId);
+        $booking->setFirstname($firstname);
+        $booking->setLastname($lastname);
+        $booking->setPhone($phone);
+        $booking->setEmail($email);
+        
+        $em->persist($booking);
+        $em->flush($booking);
 
-        return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
+        return new Response(json_encode(json_decode($requestData->get('slot'))));
+        // return $this->redirectToRoute('home_index');
+        // return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
     }
 }
