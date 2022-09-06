@@ -43,3 +43,26 @@ const apiUpdateBooking = (clientData, onSuccess) => {
     request.send(JSON.stringify(clientData))
 
 }
+
+const removeBooking = (roomId, bookingId, onSuccess) => {
+    const request = new XMLHttpRequest();
+    let url = 'https://localhost:8000'
+    request.open("POST", url + "/admindashboard/" + roomId + "/deletebooking/" + bookingId, true);
+    //request.open("POST", url + "/admindashboard/plouf");
+    request.addEventListener("readystatechange", function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            let response = request;
+            if (request.status === 200) {
+                let res = JSON.parse(request.responseText);
+                onSuccess(alert('la réservation a bien été effacée'))
+            } else if (request.status === 400) {
+                console.error("Une erreur s'est produite : ", response.status);
+            } else {
+                console.error("Une erreur s'est produite : ", response.status);
+            }
+        }
+    })
+    // request.send('firstname=' + encodeURIComponent(clientData.firstname) + '&lastname=' + encodeURIComponent(clientData.lastname) + '&phone=' + encodeURIComponent(clientData.phone) + "&email=" + encodeURIComponent(clientData.email));
+    request.send(JSON.stringify(clientData))
+
+}

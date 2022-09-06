@@ -8,7 +8,7 @@ const leftPaneRoom = document.querySelector(".pane-info");
 let clientDetail = document.querySelectorAll('.client-info')
 const roomList = document.querySelector(".rooms-list");
 const date = document.querySelector('.display-date')
-
+const removeBookingBtn = document.querySelector('#delete-client-info')
 
 let templateRoomCard = document.querySelector("#room-list-template");
 
@@ -26,15 +26,18 @@ let clientData = []
 const editClientInfo = document.querySelector('#edit-client-info')
 editClientInfo.addEventListener('click', (ev) => {
     ev.preventDefault()
+    removeBookingBtn.hidden = true
     clientDetail.forEach((elem) => {
         if (!elem.toggleAttribute('readonly')) {
             elem.classList.remove("client-info")
             editClientInfo.textContent = "Save";
+
         }
         else {
             editClientInfo.textContent = "Edit";
             elem.classList.add("client-info")
             clientData.push(elem.value)
+
         }
     })
     if (clientData.length > 0) {
@@ -50,11 +53,17 @@ editClientInfo.addEventListener('click', (ev) => {
         apiUpdateBooking(clientData, (data) => {
             clientData = [];
         })
-
+        removeBookingBtn.hidden = false
     }
 
 }
 )
+
+removeBookingBtn.addEventListener('click', (event) => {
+    bookingId = clientDetail[5].value
+    roomId = clientDetail[6].value
+    removeBooking(roomId, bookingId, {})
+})
 
 
 apiGetAllRooms((response) => {
