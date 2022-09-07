@@ -50,15 +50,9 @@ bookingForm.addEventListener('submit', (e) => {
     const email = bookingForm['email'].value;
     const slotdata = bookingForm['slot'].value;
 
-    apiPostAdminBooking(1, firstname, name, tel, email, slotdata,
-        () => {
-            alert('Success');
-        },
-        (error) => {
-            console.log(error);
-        });
+    apiPostAdminBooking(1, firstname, name, tel, email, slotdata);
 
-    // location.reload()
+    location.reload()
 });
 
 

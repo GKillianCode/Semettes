@@ -72,10 +72,8 @@ const apiPostAdminBooking = (id, firstname, name, tel, email, slotData, onSucces
             let response = request;
             if(request.status === 200){
                 console.log(response.responseText)
-                onSuccess();
             } else {
-                
-                onError(request.statusText);
+                console.log(request.statusText);
             }
         }
     });
