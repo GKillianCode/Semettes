@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
-    #[Route('/api/weekslots', name: 'show_weekslot')]
+    #[Route('/api/weekslots', methods: ['GET'])]
     public function show(
         WeekSlotRepository $weekslotRepository,
         MeetingRoomRepository $meetingRoomRepository,
@@ -22,7 +22,6 @@ class ApiController extends AbstractController
         ExceptionalClosedSlotRepository $exceptionalClosedSlotRepository,
 
     ): Response {
-        // $closedSlots = $exceptionalClosedSlotRepository->findAll();
 
         $begin =  new \DateTime(); // now();
         $end =  new \DateTime();
@@ -45,11 +44,11 @@ class ApiController extends AbstractController
 
             $closedSlotsByDay = $exceptionalClosedSlotRepository->findBy([
                 'closedDate' => $iDate
-            ]);            
+            ]);
 
             foreach ($weekslots as $slot) {
-                $startSlot = new \DateTime($i->format('Y-m-d').$slot->getStartTime()->format('H:i:s'));
-                $finishSlot = new \DateTime($i->format('Y-m-d').$slot->getEndTime()->format('H:i:s'));
+                $startSlot = new \DateTime($i->format('Y-m-d') . $slot->getStartTime()->format('H:i:s'));
+                $finishSlot = new \DateTime($i->format('Y-m-d') . $slot->getEndTime()->format('H:i:s'));
 
                 $closeDate = new \DateTime($i->format('Y-m-d'));
                 $slotStartTime = new \DateTime($slot->getStartTime()->format('H:i:s'));
@@ -58,20 +57,19 @@ class ApiController extends AbstractController
                 $isClosed = false;
 
                 foreach ($closedSlotsByDay as $closedSlot) {
-                    if($closedSlot->getClosedDate() == $closeDate ){
+                    if ($closedSlot->getClosedDate() == $closeDate) {
                         $closeStart = new \DateTime($closedSlot->getStartHour()->format('H:i:s'));
                         $closeEnd = new \DateTime($closedSlot->getEndHour()->format('H:i:s'));
 
-                        if($closeStart == $slotStartTime && $closeEnd == $slotEndTime){
+                        if ($closeStart == $slotStartTime && $closeEnd == $slotEndTime) {
                             $isClosed = true;
                         }
-
                     } else {
                         $isClosed = false;
                     }
                 }
 
-                if($isClosed == true){
+                if ($isClosed == true) {
                     $response[] = [
                         'start' => $startSlot->format('Y-m-d H:i:s'),
                         'end' => $finishSlot->format('Y-m-d H:i:s'),
@@ -82,16 +80,16 @@ class ApiController extends AbstractController
                 } else {
                     $meetingRooms = $meetingRoomRepository->findAll();
 
-                    foreach($meetingRooms as &$room){
+                    foreach ($meetingRooms as &$room) {
                         $room = $room->getId();
                     }
 
-                    $rooms = $bookingRepository->findFromdXtoDy($startSlot,$finishSlot);
+                    $rooms = $bookingRepository->findFromdXtoDy($startSlot, $finishSlot);
 
-                    foreach($rooms as &$room){
+                    foreach ($rooms as &$room) {
                         $room = $room['meeting_room_id'];
                     }
-                    $roomAvailable = array_diff($meetingRooms,$rooms);
+                    $roomAvailable = array_diff($meetingRooms, $rooms);
 
                     $response[] = [
                         'start' => $startSlot->format('Y-m-d H:i:s'),
@@ -104,20 +102,101 @@ class ApiController extends AbstractController
                     ];
                 }
             }
-            
         }
 
         return new JsonResponse($response, 200, []);
     }
 
     #[Route('/api/rooms', methods: ['GET'])]
-    public function showRooms(
+    public function getRooms(
         MeetingRoomRepository $meetingRoomRepo,
         SerializerInterface $serializer
     ) {
         $rooms = $meetingRoomRepo->findAll();
-        $apiResponse = new Response($serializer->serialize($rooms, 'json', ['groups'=>['meeting_rooms']]));
+        $apiResponse = new Response($serializer->serialize($rooms, 'json', ['groups' => ['meeting_rooms']]));
 
         return $apiResponse;
+    }
+
+    #[Route('/api/weekslots/{id}', name: 'show_weekslot')]
+    public function showRooms(
+        WeekSlotRepository $weekslotRepository,
+        MeetingRoomRepository $meetingRoomRepository,
+        BookingRepository $bookingRepository,
+        ExceptionalClosedSlotRepository $exceptionalClosedSlotRepository,
+        int $id,
+    ): Response {
+
+        $begin =  new \DateTime(); // now();
+        $end =  new \DateTime();
+        $end->modify('+30 day');
+
+        $response = [];
+
+        for ($i = $begin; $i <= $end; date_modify($i, '+1 day')) {
+            // Récupérer le jour de la semaine (date)
+            $date = new \DateTime($i->format('Y-m-d'));
+            $day = $date->format('N');
+
+            // Récupérer les slots ouvert par rapport au jour de la semaine.
+            $weekslots = $weekslotRepository->findBy([
+                'is_opened' => true,
+                'week_day' => $day
+            ]);
+
+            $iDate = new \DateTime($i->format('Y-m-d'));
+
+            $closedSlotsByDay = $exceptionalClosedSlotRepository->findBy([
+                'closedDate' => $iDate
+            ]);
+
+            foreach ($weekslots as $slot) {
+                $startSlot = new \DateTime($i->format('Y-m-d') . $slot->getStartTime()->format('H:i:s'));
+                $finishSlot = new \DateTime($i->format('Y-m-d') . $slot->getEndTime()->format('H:i:s'));
+
+                $closeDate = new \DateTime($i->format('Y-m-d'));
+                $slotStartTime = new \DateTime($slot->getStartTime()->format('H:i:s'));
+                $slotEndTime = new \DateTime($slot->getEndTime()->format('H:i:s'));
+
+                $isClosed = false;
+
+                foreach ($closedSlotsByDay as $closedSlot) {
+                    if ($closedSlot->getClosedDate() == $closeDate) {
+                        $closeStart = new \DateTime($closedSlot->getStartHour()->format('H:i:s'));
+                        $closeEnd = new \DateTime($closedSlot->getEndHour()->format('H:i:s'));
+
+                        if ($closeStart == $slotStartTime && $closeEnd == $slotEndTime) {
+                            $isClosed = true;
+                        }
+                    } else {
+                        $isClosed = false;
+                    }
+                }
+
+                if ($isClosed == true) {
+                    $response[] = [
+                        'start' => $startSlot->format('Y-m-d H:i:s'),
+                        'end' => $finishSlot->format('Y-m-d H:i:s'),
+                        'extendedProps' => [
+                            'isClosed' => true,
+                        ],
+                    ];
+                } else {
+                    $isBookingRoom = $bookingRepository->findByDateAndRoom($startSlot, $finishSlot, $id);
+
+                    $response[] = [
+                        'start' => $startSlot->format('Y-m-d H:i:s'),
+                        'end' => $finishSlot->format('Y-m-d H:i:s'),
+                        'extendedProps' => [
+                            'isClickable' => $isBookingRoom[0] ? false : true,
+                            'isClosed' => false,
+                            'bookingId' => $isBookingRoom[0] ? $isBookingRoom[0] : false
+                        ],
+                    ];
+                }
+            }
+        }
+
+        return new JsonResponse($response, 200, []);
     }
 }

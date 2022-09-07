@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BookingRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
@@ -15,47 +16,56 @@ class Booking
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['booking'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['booking'])]
     private $booking_id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $start_time; 
+    #[Groups(['booking'])]
+    private $start_time;
 
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Groups(['booking'])]
     private $end_time;
 
     /**
      * @ORM\ManyToOne(targetEntity=MeetingRoom::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
+    #[Groups(['booking'])]
     private $meeting_room;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['booking'])]
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['booking'])]
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=100)
      */
+    #[Groups(['booking'])]
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['booking'])]
     private $email;
 
     public function getId(): ?int

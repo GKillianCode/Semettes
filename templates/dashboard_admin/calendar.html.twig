@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+
+<div class="calendar-container" data-roomid="{{ roomId }}">
+	<div id="calendar"></div>
+</div>
+
+<div class="pane-room-list bg-sPurple" style="height: 100vh;">
+	<button class="pane-room-list-openButton btn btn-sYellow p-1 shadow-none">
+		<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveaspectratio="xMidYMid meet" viewbox="0 0 512 512"><path fill="currentColor" d="M440 424V88h-88V13.005L88 58.522V424H16v32h86.9L352 490.358V120h56v336h88v-32Zm-120 29.642l-200-27.586V85.478L320 51Z"/><path fill="currentColor" d="M256 232h32v64h-32z"/></svg>
+	</button>
+
+	<h2 class="text-center my-4">Liste des salles</h2>
+
+	<ul id="container-rooms" class="rooms-list mt-5">
+		<template id="room-list-template">
+			<li class="bg-sPink rounded-1 w-100 mb-5">
+				<a href="#">
+					<img src="{{ asset('assets/imgs/room1x800.jpg') }}" class="room-list-img m-0 p-0 w-100" alt="">
+					<div class="item-infos px-3 d-flex flex-column justify-content-center">
+						<p class="room-list-name py-2 text-center my-0 template-room-recap0">Room A</p>
+					</div>
+				</a>
+			</li>
+		</template>
+	</ul>
+</div>
+
+
+<div class="pane-info pt-5 pb-2 bg-sLightYellow">
+	<button class="pane-info-close btn btn-sPurple button-close p-0 z-50 rounded-1">
+		<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+	</button>
+
+	<span class="display-date">22/01/2202</span>
+
+	<form method="POST" name="update" class='update'>
+		<hr></hr>
+		<div class="d-flex flex-column client-form-container">
+			<label class="label-client-form-container" for="booking-id">Num° de réservation</label>
+			<input class="client-info" type="text" name="booking-id" value="id de réservation" readonly>
+			<label class="label-client-form-container" for="name">Nom</label>
+			<input class="client-info" type="text" name="name" value="nom" readonly>
+			<label class="label-client-form-container" for="firstname">Prenom</label>
+			<input class="client-info" type="text" name="firstname" value="prenom" readonly>
+			<label class="label-client-form-container" for="phone">Phone</label>
+			<input class="client-info" type="text" name="phone" value="n° de téléphone" readonly>
+			<label class="label-client-form-container" for="email">Email</label>
+			<input class="client-info" type="text" name="email" value="adresse email" readonly>
+
+			<input class="client-info" type="text" name="id" value="adresse email" readonly hidden>
+			<input class="client-info" type="text" name="meeting-room" value="adresse email" readonly hidden>
+
+		</div>
+		<hr></hr>
+		<div class="d-flex justify-content-start gap-2">
+			<button type="submit" id="edit-client-info" class="px-3 edit-client-info">Edit</button>
+			<button type="button" id="delete-client-info" class="px-3 delete-client-info">Delete</button>
+		</div>
+	</form>
+</div>
+
+
+<div class="booking-cover">
+	<div class="booking-container bg-sPurple rounded-2 p-3">
+		<button class="booking-btn-close btn bg-sYellow p-0 z-50 rounded-1">
+			<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveaspectratio="xMidYMid meet" viewbox="0 0 24 24"><path fill="#FFF" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 20L4 4m16 0L4 20"/></svg>
+		</button>
+
+		<form action="POST" class="bookingform">
+			<h3 class="mb-2 text-white">Réservation de salle</h3>
+			<p class="mb-0">Créneau du
+				<span class="booking-date text-white">06/09/2022</span>
+			</p>
+			<p>De
+				<span class="booking-time-start text-white">8</span>
+				h à
+				<span class="booking-time-end text-white">12</span>
+				h
+			</p>
+
+			<div class='d-flex flex-column gap-3 '>
+				<div class="input-group-prepend d-flex gap-2">
+					<span class="input-group-text bg-sPink text-sBlack" id="prenom">prenom</span>
+					<input id="booking-firstname" class="form-control" type="text" name="firstname" placeholder="Prénom">
+				</div>
+				<div class="input-group-prepend d-flex gap-2">
+					<span class="input-group-text bg-sPink text-sBlack" id="nom">nom</span>
+					<input id="booking-name" class="form-control" type="text" name="name" placeholder="Nom">
+				</div>
+				<div class="input-group-prepend d-flex gap-2">
+					<span class="input-group-text bg-sPink text-sBlack" id="tel">n°</span>
+					<input id="booking-tel" class="form-control" type="text" name="tel" placeholder="Téléphone">
+				</div>
+				<div class="input-group-prepend d-flex gap-2">
+					<span class="input-group-text bg-sPink text-sBlack" id="email">email</span>
+					<input id="booking-email" class="form-control" type="text" name="email" placeholder="Email">
+				</div>
+
+				<div class="input-group-prepend d-flex gap-2">
+					<input id="slotdata" class="form-control" type="hidden" name="slot">
+				</div>
+
+			</div>
+			<button class="booking-submit btn btn-sYellow mt-4 text-white" type="submit">Réserver</button>
+		</form>
+	</div>
+</div>
+
+<link rel="stylesheet" href="{{ asset('assets/css/dashboard.admin.css') }}">
+<script src="{{ asset('assets/js/fullCalendar.js') }}"></script>
+<script src="{{ asset('assets/js/dashboard.admin.js') }}"></script>
+<script src="{{ asset('assets/js/tools.admindashboard.js') }}"></script>
+<script src="{{ asset('assets/js/api.admin.js') }}"></script>
+{% endblock %}

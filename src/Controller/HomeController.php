@@ -25,33 +25,32 @@ class HomeController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-
-        $booking=new Booking();
         
-            if (count($_POST) > 0){
-                $basket=json_decode($_POST['basket']);
-                $firstname=htmlentities($_POST['firstname']);
-                $lastname=htmlentities($_POST['name']);
-                $phone=htmlentities($_POST['tel']);
-                $email=htmlentities($_POST['email']);
-                $bookingId=substr(md5(uniqid()), 0, 10);
+        if (count($_POST) > 0){
+            $basket=json_decode($_POST['basket']);
+            $firstname=htmlentities($_POST['firstname']);
+            $lastname=htmlentities($_POST['name']);
+            $phone=htmlentities($_POST['tel']);
+            $email=htmlentities($_POST['email']);
+            $bookingId=substr(md5(uniqid()), 0, 10);
 
-                foreach($basket as $basketDetail){
-                    $booking->setStartTime(new \DateTime($basketDetail->slot->start));
-                    $booking->setEndTime(new \DateTime($basketDetail->slot->end));
-                    $booking->setMeetingRoom($meetingRoomRepo->findOneById(htmlentities($basketDetail->room)));
-                    $booking->setBookingId($bookingId);
-                 }
-
+            foreach($basket as $basketDetail){
+                $booking=new Booking();
+                $booking->setStartTime(new \DateTime($basketDetail->slot->start));
+                $booking->setEndTime(new \DateTime($basketDetail->slot->end));
+                $booking->setMeetingRoom($meetingRoomRepo->findOneById(htmlentities($basketDetail->room)));
+                $booking->setBookingId($bookingId);
                 $booking->setFirstname($firstname);
                 $booking->setLastname($lastname);
                 $booking->setPhone($phone);
                 $booking->setEmail($email);
+
                 $entityManager->persist($booking);
                 $entityManager->flush($booking);
-
-                return $this->redirectToRoute('home_index');
             }
+
+            return $this->redirectToRoute('home_index');
+        }
 
  
        

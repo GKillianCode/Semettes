@@ -20,26 +20,20 @@ function drawCalendar(events){
             rooms_bdd = rooms;
             let calendarEl = document.getElementById('calendar');
             let calendar = new FullCalendar.Calendar(calendarEl, {
-            headerToolbar: { center: 'timeGridWeek,dayGrid' },
-            initialView:'timeGridWeek',
-            header:{
-                left:'prev,next,today',
-                center :'title',
+            headerToolbar: { center: "timeGridWeek" },
+            initialView: "timeGridWeek",
+            header: {
+                left: "prev,next,today",
+                center: "title",
             },
             allDaySlot: false,
-            timeZone: 'UTC',
+            timeZone: "local",
+            locale: "fr",
+            slotMinTime: "08:00:00",
+            slotMaxTime: "18:00:00",
+            firstDay: 1,
+            height: 600,
             
-            // events: [
-            //     {
-            //         extendedProps: {
-            //             room : [1, 2, 3],
-            //             isClickable : true,
-            //             isClosed : false,
-            //         },
-            //         start: '2022-08-23 08:00:00',
-            //         end: '2022-08-23 12:00:00'
-            //     }
-            // ],
             events: events,
             eventTimeFormat: {
                 hour: '2-digit',
@@ -83,7 +77,12 @@ function drawCalendar(events){
                         let btnBookRoom = document.querySelectorAll('.template-btnValidOneRoom')
                         btnBookRoom.forEach(btn=>{
                             btn.addEventListener('click',ev=>{
-                                dataSlot = JSON.parse(localStorage.getItem('purchasingInfo'))
+                                let data = JSON.parse(localStorage.getItem('purchasingInfo'));
+                                let dataSlot = {
+                                    'start': data.start,
+                                    'end': data.end
+                                };
+
                                 if (!localStorage.getItem('basket')){
                                     localStorage.setItem('basket','[]');
                                 }
@@ -92,12 +91,11 @@ function drawCalendar(events){
                                     'slot' : dataSlot,
                                     'room' : btn.id
                                 }
-                                console.log(basketTemp.slot.end)
+
                                 if (!basket.map(el=>JSON.stringify(el)).includes(JSON.stringify(basketTemp))){
                                     basket.push(basketTemp)
                                 }else{
                                     basket.splice(basket.map(el=>JSON.stringify(el)).findIndex(el => (el === JSON.stringify(basketTemp))),1);
-                                    console.log(basket)
                                 }
                                 localStorage.setItem('basket',JSON.stringify(basket));
                                 update_basket();   
@@ -140,8 +138,6 @@ function drawCalendar(events){
                     isClosed.innerHTML = 'Fermeture exceptionnelle <span class="fermeture-smiley">🥲</span>';
                     arrayOfDomNodes.push(isClosed);
                 }
-
-                console.log(arrayOfDomNodes);
                     
                 return { domNodes: arrayOfDomNodes }    
             }
