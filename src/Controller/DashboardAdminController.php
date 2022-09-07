@@ -4,15 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Booking;
 use App\Repository\BookingRepository;
-use App\Repository\MeetingRoomRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use App\Repository\MeetingRoomRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 class DashboardAdminController extends AbstractController
 {
@@ -36,8 +36,7 @@ class DashboardAdminController extends AbstractController
         int $id,
         int $bookingid,
         BookingRepository $bookingRepository
-    ): Response
-    {
+    ): Response {
         $booking = $bookingRepository->findOneById($bookingid);
         $bookingRepository->remove($booking, true);
 
@@ -50,13 +49,14 @@ class DashboardAdminController extends AbstractController
         int $bookingid,
         BookingRepository $bookingRepository,
         SerializerInterface $serializer,
-    ): Response
-    {
+    ): Response {
         $booking = $bookingRepository->findOneById($bookingid);
-        $apiResponse = new Response($serializer->serialize($booking, 'json', ['groups'=>['booking']]));
+
+        $apiResponse = new Response($serializer->serialize($booking, 'json', ['groups' => ['booking']]));
 
         return $apiResponse;
     }
+
 
     // #[IsGranted('ROLE_ADMIN')]
     #[Route('/admindashboard/{id}/updatebooking/{bookingid}', name: 'app_dashboard_update')]
@@ -64,24 +64,24 @@ class DashboardAdminController extends AbstractController
         int $id,
         int $bookingid,
         BookingRepository $bookingRepository,
-        EntityManagerInterface $em
-    ): Response
-    {
-        $firstname = htmlentities($_POST['firstname']);
-        $lastname = htmlentities($_POST['lastname']);
-        $phone = htmlentities($_POST['phone']);
-        $email = htmlentities($_POST['email']);
+        EntityManagerInterface $em,
+        Request $request
+    ): Response {
+
+
+        $content = json_decode($request->getContent())[0];
 
         $booking = $bookingRepository->findOneById($bookingid);
-        $booking->setFirstname = $firstname;
-        $booking->setLastname = $lastname;
-        $booking->setPhone = $phone;
-        $booking->setEmail = $email;
+        $booking->setBookingId($content->reservation);
+        $booking->setFirstname($content->firstname);
+        $booking->setLastname($content->lastname);
+        $booking->setPhone($content->phone);
+        $booking->setEmail($content->email);
 
         $em->persist($booking);
         $em->flush($booking);
 
-        return $this->redirectToRoute('app_dashboard_admin', ['id' => $id]);
+        return new JsonResponse($content->reservation);
     }
 
     // #[IsGranted('ROLE_ADMIN')]

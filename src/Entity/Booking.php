@@ -15,7 +15,7 @@ class Booking
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     */ 
+     */
     #[Groups(['booking'])]
     private $id;
 
@@ -41,6 +41,7 @@ class Booking
      * @ORM\ManyToOne(targetEntity=MeetingRoom::class, inversedBy="bookings")
      * @ORM\JoinColumn(nullable=false)
      */
+    #[Groups(['booking'])]
     private $meeting_room;
 
     /**

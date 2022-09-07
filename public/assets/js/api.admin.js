@@ -1,31 +1,7 @@
-
-
-const url = "/api";
-
-const apiGetAllSlots = (onSuccess) => {
+const apiGetBookingByBookingId = (bookingId, onSuccess) => {
     const request = new XMLHttpRequest();
-    let url = 'https://localhost:8000/api'
-    request.open("GET", url + "/weekslots", true);
-    request.addEventListener("readystatechange", function () {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            let response = request;
-            if (request.status === 200) {
-                let res = JSON.parse(request.responseText);
-                setTimeout(onSuccess(res), 5000);
-            } else if (request.status === 400) {
-                console.error("Une erreur s'est produite : ", response.status);
-            } else {
-                console.error("Une erreur s'est produite : ", response.status);
-            }
-        }
-    })
-    request.send();
-}
-
-const apiGetAllSlotsByRoom = (roomId, onSuccess) => {
-    const request = new XMLHttpRequest();
-    let url = 'https://localhost:8000/api';
-    request.open("GET", url + "/weekslots/" + roomId, true);
+    let url = 'https://localhost:8000'
+    request.open("GET", url + "/admindashboard/getdata/" + bookingId, true);
     request.addEventListener("readystatechange", function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             let response = request;
@@ -42,10 +18,14 @@ const apiGetAllSlotsByRoom = (roomId, onSuccess) => {
     request.send();
 }
 
-const apiGetAllRooms = (onSuccess) => {
+const apiUpdateBooking = (clientData, onSuccess) => {
     const request = new XMLHttpRequest();
-    let url = 'https://localhost:8000/api'
-    request.open("GET", url + "/rooms", true);
+    let url = 'https://localhost:8000'
+    console.log("DIM", clientData[0].bookingId)
+
+
+    request.open("POST", url + "/admindashboard/" + clientData[0].roomId + "/updatebooking/" + clientData[0].bookingId, true);
+    //request.open("POST", url + "/admindashboard/plouf");
     request.addEventListener("readystatechange", function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             let response = request;
@@ -59,25 +39,30 @@ const apiGetAllRooms = (onSuccess) => {
             }
         }
     })
-    request.send();
+    // request.send('firstname=' + encodeURIComponent(clientData.firstname) + '&lastname=' + encodeURIComponent(clientData.lastname) + '&phone=' + encodeURIComponent(clientData.phone) + "&email=" + encodeURIComponent(clientData.email));
+    request.send(JSON.stringify(clientData))
+
 }
 
-const apiPostAdminBooking = (id, firstname, name, tel, email, slotData) => {
-    console.log('id  : ' + id);
+const removeBooking = (roomId, bookingId, onSuccess) => {
     const request = new XMLHttpRequest();
-    let url = 'https://localhost:8000/'
-    request.open("POST", url+"admindashboard/"+id+"/addbooking", true);
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    request.addEventListener("readystatechange", function (){
-        if(request.readyState === XMLHttpRequest.DONE){
+    let url = 'https://localhost:8000'
+    request.open("POST", url + "/admindashboard/" + roomId + "/deletebooking/" + bookingId, true);
+    //request.open("POST", url + "/admindashboard/plouf");
+    request.addEventListener("readystatechange", function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
             let response = request;
-            if(request.status === 200){
-                console.log(response.responseText)
+            if (request.status === 200) {
+                let res = JSON.parse(request.responseText);
+                onSuccess(alert('la réservation a bien été effacée'))
+            } else if (request.status === 400) {
+                console.error("Une erreur s'est produite : ", response.status);
             } else {
-                console.log(request.statusText);
+                console.error("Une erreur s'est produite : ", response.status);
             }
         }
-    });
+    })
+    // request.send('firstname=' + encodeURIComponent(clientData.firstname) + '&lastname=' + encodeURIComponent(clientData.lastname) + '&phone=' + encodeURIComponent(clientData.phone) + "&email=" + encodeURIComponent(clientData.email));
+    request.send(JSON.stringify(clientData))
 
-    request.send(`firstname=${encodeURIComponent(firstname)}&name=${encodeURIComponent(name)}&tel=${encodeURIComponent(tel)}&email=${encodeURIComponent(email)}&slot=${encodeURIComponent(slotData)}`);
 }

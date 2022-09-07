@@ -3,7 +3,10 @@ const paneInfo = document.querySelector(".pane-info");
 const paneInfoClose = document.querySelector(".pane-info-close");
 const paneRoomCloseButton = document.querySelector(".pane-room-list-openButton");
 const leftPaneRoom = document.querySelector(".pane-info");
+let clientDetail = document.querySelectorAll('.client-info')
 const roomList = document.querySelector(".rooms-list");
+const date = document.querySelector('.display-date')
+const removeBookingBtn = document.querySelector('#delete-client-info')
 
 const bookingCover = document.querySelector(".booking-cover");
 const bookingContainer = document.querySelector(".booking-container");
@@ -22,26 +25,52 @@ paneRoomCloseButton.addEventListener("click", () => {
     paneRoom.classList.toggle("pane-room-list-open");
 });
 
-paneInfoClose.addEventListener('click',()=>{
+paneInfoClose.addEventListener('click', () => {
     paneInfo.classList.remove("pane-info-open")
 })
+let clientData = []
 
 const editClientInfo = document.querySelector('#edit-client-info')
 editClientInfo.addEventListener('click', (ev) => {
     ev.preventDefault()
-    let clientDetail = document.querySelectorAll('.client-info')
-    editClientInfo.textContent="Save";
-    editClientInfo.style.backgroundColor="";
+    removeBookingBtn.hidden = true
     clientDetail.forEach((elem) => {
+        if (!elem.toggleAttribute('readonly')) {
+            elem.classList.remove("client-info")
+            editClientInfo.textContent = "Save";
 
-        if(!elem.toggleAttribute('readonly')){
-            //ev.preventDefault()
-            elem.classList.remove("client-info")  
         }
-        
-    });
-});
+        else {
+            editClientInfo.textContent = "Edit";
+            elem.classList.add("client-info")
+            clientData.push(elem.value)
 
+        }
+    })
+    if (clientData.length > 0) {
+        clientData = [{
+            'reservation': clientData[0],
+            'firstname': clientData[1],
+            'lastname': clientData[2],
+            'phone': clientData[3],
+            'email': clientData[4],
+            'bookingId': clientData[5],
+            'roomId': clientData[6],
+        }]
+        apiUpdateBooking(clientData, (data) => {
+            clientData = [];
+        })
+        removeBookingBtn.hidden = false
+    }
+
+}
+)
+
+removeBookingBtn.addEventListener('click', (event) => {
+    bookingId = clientDetail[5].value
+    roomId = clientDetail[6].value
+    removeBooking(roomId, bookingId, {})
+})
 bookingFormBtnClose.addEventListener('click', () => {
     bookingCover.classList.remove('booking-container-open');
 });
@@ -69,7 +98,6 @@ apiGetAllRooms((response) => {
         roomName.textContent = room.room_name;
         let roomLink = clonedTemplate.querySelector("a");
         roomLink.href = "/admindashboard/" + room.id;
-
         roomList.appendChild(clonedTemplate);
     });
 });
@@ -112,20 +140,32 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
-                dateForm.textContent = info.event.start.toLocaleDateString();
-                dateStartForm.textContent = info.event.start.getHours();
-                dateEndForm.textContent = info.event.end.getHours();
-                if (info.event._def.extendedProps.isClickable == true) {
-                    bookingCover.classList.add("booking-container-open");
-                    let input = document.querySelector('#slotdata');
-                    input.value = JSON.stringify(info.event);
-                    
-                } else {
+
+                let bookingId = info.event._def.extendedProps.bookingId
+                if (info.event._def.extendedProps.isClickable == false) {
+
+
+                    apiGetBookingByBookingId(bookingId, (data) => {
+                        console.log(data);
+                        date.textContent = new Date(data.start_time).toLocaleDateString()
+
+                        clientDetail[0].value = data.booking_id
+                        clientDetail[1].value = data.lastname
+                        clientDetail[2].value = data.firstname
+                        clientDetail[3].value = data.phone
+                        clientDetail[4].value = data.email
+                        clientDetail[5].value = data.id
+                        clientDetail[6].value = data.meeting_room.id
+                    })
                     leftPaneRoom.classList.remove("pane-info-open");
-                    setTimeout(()=> {
+                    setTimeout(() => {
                         leftPaneRoom.classList.add("pane-info-open");
-                    },500)
+                    }, 500)
                 }
+                leftPaneRoom.classList.remove("pane-info-open");
+                setTimeout(()=> {
+                    leftPaneRoom.classList.add("pane-info-open");
+                },500)
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
