@@ -140,10 +140,12 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
+                dateForm.textContent = info.event.start.toLocaleDateString();
+                dateStartForm.textContent = info.event.start.getHours();
+                dateEndForm.textContent = info.event.end.getHours();
 
                 let bookingId = info.event._def.extendedProps.bookingId
                 if (info.event._def.extendedProps.isClickable == false) {
-
 
                     apiGetBookingByBookingId(bookingId, (data) => {
                         console.log(data);
@@ -157,15 +159,17 @@ function drawCalendar(events) {
                         clientDetail[5].value = data.id
                         clientDetail[6].value = data.meeting_room.id
                     })
+                    
                     leftPaneRoom.classList.remove("pane-info-open");
                     setTimeout(() => {
                         leftPaneRoom.classList.add("pane-info-open");
                     }, 500)
+
+                } else {
+                    bookingCover.classList.add("booking-container-open");
+                    let input = document.querySelector('#slotdata');
+                    input.value = JSON.stringify(info.event);
                 }
-                leftPaneRoom.classList.remove("pane-info-open");
-                setTimeout(()=> {
-                    leftPaneRoom.classList.add("pane-info-open");
-                },500)
             },
             eventContent: function (info) {
                 let arrayOfDomNodes = [];
