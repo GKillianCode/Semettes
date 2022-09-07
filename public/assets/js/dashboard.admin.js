@@ -10,7 +10,10 @@ const bookingContainer = document.querySelector(".booking-container");
 const bookingForm = document.querySelector(".bookingform");
 const bookingFormBtnClose = document.querySelector(".booking-btn-close");
 const calendarContainer = document.querySelector(".calendar-container");
-
+const dateForm = document.querySelector(".booking-date")
+const dateStartForm = document.querySelector(".booking-time-start")
+const dateEndForm = document.querySelector(".booking-time-end")
+    
 let templateRoomCard = document.querySelector("#room-list-template");
 
 let rooms_bdd = [];
@@ -109,12 +112,14 @@ function drawCalendar(events) {
                 hour12: false,
             },
             eventClick: function (info) {
+                dateForm.textContent = info.event.start.toLocaleDateString();
+                dateStartForm.textContent = info.event.start.getHours();
+                dateEndForm.textContent = info.event.end.getHours();
                 if (info.event._def.extendedProps.isClickable == true) {
                     bookingCover.classList.add("booking-container-open");
-
                     let input = document.querySelector('#slotdata');
                     input.value = JSON.stringify(info.event);
-
+                    
                 } else {
                     leftPaneRoom.classList.remove("pane-info-open");
                     setTimeout(()=> {
