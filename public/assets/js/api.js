@@ -62,7 +62,8 @@ const apiGetAllRooms = (onSuccess) => {
     request.send();
 }
 
-const apiPostAdminBooking = (id, firstname, name, tel, email, slotData, onSuccess, onError) => {
+const apiPostAdminBooking = (id, firstname, name, tel, email, slotData) => {
+    console.log('id  : ' + id);
     const request = new XMLHttpRequest();
     let url = 'https://localhost:8000/'
     request.open("POST", url+"admindashboard/"+id+"/addbooking", true);

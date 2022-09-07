@@ -25,9 +25,9 @@ class DashboardAdminController extends AbstractController
 
     // #[IsGranted('ROLE_ADMIN')]
     #[Route('/admindashboard/{id}', name: 'app_dashboard_admin')]
-    public function calendar(): Response
+    public function calendar(int $id): Response
     {
-        return $this->render('dashboard_admin/calendar.html.twig');
+        return $this->render('dashboard_admin/calendar.html.twig', ['roomId' => $id]);
     }
 
     // #[IsGranted('ROLE_ADMIN')]

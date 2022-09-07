@@ -9,6 +9,7 @@ const bookingCover = document.querySelector(".booking-cover");
 const bookingContainer = document.querySelector(".booking-container");
 const bookingForm = document.querySelector(".bookingform");
 const bookingFormBtnClose = document.querySelector(".booking-btn-close");
+const calendarContainer = document.querySelector(".calendar-container");
 
 let templateRoomCard = document.querySelector("#room-list-template");
 
@@ -50,7 +51,7 @@ bookingForm.addEventListener('submit', (e) => {
     const email = bookingForm['email'].value;
     const slotdata = bookingForm['slot'].value;
 
-    apiPostAdminBooking(1, firstname, name, tel, email, slotdata);
+    apiPostAdminBooking(calendarContainer.dataset.roomid, firstname, name, tel, email, slotdata);
 
     location.reload()
 });
@@ -160,7 +161,7 @@ function drawCalendar(events) {
     });
 }
 
-apiGetAllSlotsByRoom(1, drawCalendar);
+apiGetAllSlotsByRoom(calendarContainer.dataset.roomid, drawCalendar);
 
 
 
