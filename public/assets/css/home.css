@@ -1,9 +1,9 @@
-nav{
-    height:80px;
+nav {
+    height: 80px;
 }
 
 
-.pane-info{
+.pane-info {
     position: fixed;
     left: -320px;
     top: 0;
@@ -14,19 +14,21 @@ nav{
     transition: .2s;
 }
 
-.display-date{
-    display:block;
+.display-date {
+    display: block;
     font-weight: bold;
-    font-size:22px;
+    font-size: 22px;
     padding-bottom: 20px;
 }
-.pane-info-open{
+
+.pane-info-open {
     left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.pane-info ul{
+
+.pane-info ul {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,7 +37,8 @@ nav{
     overflow-y: scroll;
     list-style: none;
 }
-.pane-info .button-close{
+
+.pane-info .button-close {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -45,42 +48,45 @@ nav{
     justify-content: center;
     align-items: center;
 }
-.pane-info-img{
+
+.pane-info-img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
 }
 
-.fc-col-header-cell{
+.fc-col-header-cell {
     background: #b25f8f;
 }
-.fc-col-header-cell a{
+
+.fc-col-header-cell a {
     text-decoration: none;
     color: #FFF;
 }
-.fc-today{
+
+.fc-today {
     background-color: red !important;
 }
 
 .fc-timegrid-axis-frame,
 .fc-timegrid-slot-label-frame,
-.fc-timegrid-slot-label{
+.fc-timegrid-slot-label {
     background: #b25f8f;
     color: #FFF;
 }
 
-.fc-event-main{
+.fc-event-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     row-gap: 5px;
     padding: 5px;
     border-radius: 2px;
-    
+
 }
 
-.room-link{
+.room-link {
     text-decoration: none;
     display: inline;
     text-align: center;
@@ -88,31 +94,32 @@ nav{
     color: #111;
 }
 
-.fermeture{
+.fermeture {
     display: flex;
     flex-direction: column;
     text-align: center;
     padding: 5px;
 }
-.fermeture-smiley{
+
+.fermeture-smiley {
     font-size: 24px;
 }
 
-.calendar-container{
+.calendar-container {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 10px;
 }
 
-.calendar-container{
+.calendar-container {
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 10px;
 }
 
-.pane-recap{
+.pane-recap {
     width: 450px;
     position: fixed;
     z-index: 50;
@@ -121,45 +128,50 @@ nav{
     border-left: 2px solid #444;
     transition: .2s;
 }
-.pane-recap-open{
+
+.pane-recap-open {
     right: 0;
 }
 
-.pane-recap-openButton{
+.pane-recap-openButton {
     position: absolute;
     top: 60px;
     left: -44px;
     border-radius: 2px 0 0 2px;
 }
 
-/* .recap-list{
-    max-height: 90vh;
-    display: grid;
+#container-recap {
+    max-height: 10vh;
+    /*display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
-    flex-direction: column;
-    justify-content: center;
+    /*flex-direction: column;
+    justify-content: center;*/
     padding: 10px;
     overflow-y: scroll;
-} */
-.recap-item{
+}
+
+.recap-item {
     display: grid;
     grid-template-columns: 120px 1fr 80px;
     justify-content: start;
     list-style-type: none;
     min-height: 100px;
 }
-.recap-img{
+
+.recap-img {
     width: 120px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
 }
-.item-name{
+
+.item-name {
     font-size: 20px;
     font-weight: 600;
 }
-.item-info-price{
+
+.item-info-price {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,21 +181,21 @@ nav{
     padding: 10px;
 }
 
-.info-date, .info-hour{
+.info-date,
+.info-hour {
     font-weight: 600;
 }
 
-.orderButton{
+.orderButton {
     width: calc(100% - 20px);
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.template-btnValidOneRoom{
-    margin:10px 0 45px 0;
+.template-btnValidOneRoom {
+    margin: 10px 0 45px 0;
 }
 
-.template-room-name{
+.template-room-name {
     font-weight: 700;
 }
-

@@ -121,7 +121,6 @@ class ApiController extends AbstractController
     #[Route('/api/weekslots/{id}', name: 'show_weekslot')]
     public function showRooms(
         WeekSlotRepository $weekslotRepository,
-        MeetingRoomRepository $meetingRoomRepository,
         BookingRepository $bookingRepository,
         ExceptionalClosedSlotRepository $exceptionalClosedSlotRepository,
         int $id,

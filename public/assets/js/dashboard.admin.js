@@ -16,7 +16,7 @@ const calendarContainer = document.querySelector(".calendar-container");
 const dateForm = document.querySelector(".booking-date")
 const dateStartForm = document.querySelector(".booking-time-start")
 const dateEndForm = document.querySelector(".booking-time-end")
-    
+
 let templateRoomCard = document.querySelector("#room-list-template");
 
 let rooms_bdd = [];
@@ -159,7 +159,7 @@ function drawCalendar(events) {
                         clientDetail[5].value = data.id
                         clientDetail[6].value = data.meeting_room.id
                     })
-                    
+
                     leftPaneRoom.classList.remove("pane-info-open");
                     setTimeout(() => {
                         leftPaneRoom.classList.add("pane-info-open");
