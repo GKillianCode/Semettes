@@ -140,14 +140,12 @@ nav {
     border-radius: 2px 0 0 2px;
 }
 
-#container-recap {
-    max-height: 10vh;
-    /*display: grid;
+.recap-list {
+    max-height: 90vh;
+    display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
-    /*flex-direction: column;
-    justify-content: center;*/
-    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
     overflow-y: scroll;
 }
 
